@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // Konfigurasi Database DomaiNesia (Sesuaikan dengan kredensial cPanel Anda)
 $DB_HOST = getenv('DB_HOST') ?: 'localhost';
-$DB_NAME = getenv('DB_NAME') ?: 'asetlab_db';     // Contoh di DomaiNesia: u1234567_asetlab
-$DB_USER = getenv('DB_USER') ?: 'asetlab_user';   // Contoh di DomaiNesia: u1234567_admin
-$DB_PASS = getenv('DB_PASS') ?: 'PasswordKuat123!';
+$DB_NAME = getenv('DB_NAME') ?: 'percet39_asetlab';     // Contoh di DomaiNesia: u1234567_asetlab
+$DB_USER = getenv('DB_USER') ?: 'percet39_asetlab';   // Contoh di DomaiNesia: u1234567_admin
+$DB_PASS = getenv('DB_PASS') ?: 'Cappadoc50~';
 
 try {
     $pdo = new PDO("mysql:host={$DB_HOST};dbname={$DB_NAME};charset=utf8mb4", $DB_USER, $DB_PASS, [
