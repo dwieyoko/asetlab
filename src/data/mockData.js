@@ -1,4 +1,5 @@
 import { ref, watch } from 'vue';
+import { ProductsApi, OrdersApi } from '@/services/api';
 
 const DEFAULT_PRODUCTS = [
   {
@@ -208,6 +209,8 @@ export function addProduct(newProduct) {
     tags: newProduct.tags || [newProduct.category]
   };
   products.value.unshift(product);
+  // Sinkronisasi asinkron ke API DomaiNesia (jika backend aktif)
+  ProductsApi.create(product).catch(() => {});
   return product;
 }
 
@@ -215,6 +218,8 @@ export function updateProduct(id, updatedFields) {
   const index = products.value.findIndex(p => p.id === id);
   if (index !== -1) {
     products.value[index] = { ...products.value[index], ...updatedFields };
+    // Sinkronisasi asinkron ke API DomaiNesia
+    ProductsApi.update(id, updatedFields).catch(() => {});
     return products.value[index];
   }
   return null;
@@ -224,6 +229,8 @@ export function deleteProduct(id) {
   const index = products.value.findIndex(p => p.id === id);
   if (index !== -1) {
     const deleted = products.value.splice(index, 1)[0];
+    // Sinkronisasi asinkron ke API DomaiNesia
+    ProductsApi.delete(id).catch(() => {});
     return deleted;
   }
   return null;
@@ -246,6 +253,8 @@ export function addOrder(newOrder) {
     status: newOrder.status || 'Menunggu Konfirmasi'
   };
   orders.value.unshift(order);
+  // Sinkronisasi asinkron ke API DomaiNesia
+  OrdersApi.create(order).catch(() => {});
   return order;
 }
 
@@ -253,6 +262,8 @@ export function updateOrder(id, updatedFields) {
   const index = orders.value.findIndex(o => o.id === id);
   if (index !== -1) {
     orders.value[index] = { ...orders.value[index], ...updatedFields };
+    // Sinkronisasi asinkron ke API DomaiNesia
+    OrdersApi.update(id, updatedFields).catch(() => {});
     return orders.value[index];
   }
   return null;
@@ -262,9 +273,39 @@ export function deleteOrder(id) {
   const index = orders.value.findIndex(o => o.id === id);
   if (index !== -1) {
     const deleted = orders.value.splice(index, 1)[0];
+    // Sinkronisasi asinkron ke API DomaiNesia
+    OrdersApi.delete(id).catch(() => {});
     return deleted;
   }
   return null;
+}
+
+/**
+ * Sinkronisasi data dari database DomaiNesia jika backend API tersedia
+ */
+export async function syncWithRemoteDatabase() {
+  try {
+    const resProducts = await ProductsApi.getAll();
+    if (resProducts && resProducts.data && resProducts.data.length > 0) {
+      products.value = resProducts.data;
+    }
+  } catch (e) {
+    // Backend offline / mode lokal dev
+  }
+
+  try {
+    const resOrders = await OrdersApi.getAll();
+    if (resOrders && resOrders.data && resOrders.data.length > 0) {
+      orders.value = resOrders.data;
+    }
+  } catch (e) {
+    // Backend offline / mode lokal dev
+  }
+}
+
+// Inisialisasi sync otomatis di browser
+if (typeof window !== 'undefined') {
+  syncWithRemoteDatabase();
 }
 
 export const transactions = ref([
