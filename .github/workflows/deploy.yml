@@ -32,13 +32,12 @@ jobs:
 
       - name: 🚀 Deploy to DomaiNesia via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        if: env.FTP_SERVER != ''
-        env:
-          FTP_SERVER: ${{ secrets.DOMAINESIA_FTP_SERVER }}
+        if: ${{ secrets.DOMAINESIA_FTP_PASSWORD != '' }}
         with:
-          server: ${{ secrets.DOMAINESIA_FTP_SERVER }}
-          username: ${{ secrets.DOMAINESIA_FTP_USERNAME }}
+          server: ${{ secrets.DOMAINESIA_FTP_SERVER || '103.147.154.179' }}
+          username: ${{ secrets.DOMAINESIA_FTP_USERNAME || 'asetlab_id@asetlab.web.id' }}
           password: ${{ secrets.DOMAINESIA_FTP_PASSWORD }}
+          port: 21
           local-dir: ./dist/
-          server-dir: /public_html/
+          server-dir: /
           dangerous-clean-slate: false
