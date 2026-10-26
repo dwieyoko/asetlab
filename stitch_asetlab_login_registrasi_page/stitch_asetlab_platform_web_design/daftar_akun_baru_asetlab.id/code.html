@@ -1,0 +1,535 @@
+<!DOCTYPE html><html class="dark" lang="id"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_blank" name="shell-type">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Quicksand:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #0a0e17;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary-fixed": "#6ffbbe",
+            "secondary": "#10b981",
+            "primary-fixed": "#6ff6ff",
+            "surface-container-lowest": "#060910",
+            "inverse-surface": "#dfe2ef",
+            "inverse-primary": "#00696f",
+            "on-surface": "#f1f5f9",
+            "secondary-fixed-dim": "#4edea3",
+            "on-tertiary": "#00354a",
+            "on-error-container": "#ffdad6",
+            "primary-container": "#00f2fe",
+            "on-background": "#f8fafc",
+            "surface": "#0a0e17",
+            "surface-card": "#131926",
+            "surface-container-high": "#182030",
+            "surface-input": "#1a2234",
+            "on-primary-fixed-variant": "#004f53",
+            "tertiary-fixed-dim": "#7bd0ff",
+            "surface-container": "#111622",
+            "surface-container-low": "#0d121c",
+            "outline-variant": "#2a364f",
+            "outline": "#475569",
+            "error": "#ff6b6b",
+            "primary": "#00f2fe",
+            "on-surface-variant": "#94a3b8",
+            "tertiary": "#ffffff",
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "1.75rem",
+            "xl": "2.5rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "margin": "2rem",
+            "gutter-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "margin-mobile": "1rem"
+          },
+          fontFamily: {
+            "sans": ["Inter", "sans-serif"],
+            "headline": ["Plus Jakarta Sans", "sans-serif"],
+            "quicksand": ["Quicksand", "sans-serif"],
+            "display-hero": ["Plus Jakarta Sans", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-[#0a0e17] text-slate-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#00f2fe] selection:text-[#060910] relative overflow-x-hidden font-sans">
+<!-- Ambient Cyber Glow Neon Background Effects -->
+<div class="pointer-events-none fixed inset-0 z-0 flex items-center justify-center overflow-hidden">
+<div class="absolute -top-40 left-1/4 w-[650px] h-[650px] rounded-full bg-[#00f2fe]/10 blur-[150px]"></div>
+<div class="absolute top-1/3 -right-20 w-[550px] h-[550px] rounded-full bg-[#10b981]/10 blur-[170px]"></div>
+<div class="absolute -bottom-32 left-10 w-[600px] h-[600px] rounded-full bg-[#0072f5]/8 blur-[160px]"></div>
+<!-- Subtle Grid Overlay -->
+<div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+</div>
+<!-- Header Nav -->
+<header class="relative z-20 w-full px-gutter-mobile lg:px-gutter py-space-md border-b border-white/[0.04]">
+<div class="w-full max-w-7xl mx-auto flex items-center justify-between gap-space-md">
+<a class="inline-flex items-center gap-space-xs text-slate-400 hover:text-[#00f2fe] transition-colors py-space-xs px-space-sm rounded-lg hover:bg-white/[0.04] text-sm font-medium group" data-path="home" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+<span>Kembali ke Beranda</span>
+</a>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#131926] border border-[#10b981]/30 text-[#10b981] text-xs font-semibold shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+<span class="material-symbols-outlined text-[16px] text-[#10b981]">verified_user</span>
+<span>Enkripsi 256-bit SSL</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-gutter-mobile lg:px-gutter py-space-lg">
+<div class="w-full max-w-7xl mx-auto">
+<!-- Breadcrumb & Batch Status Pill -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm mb-space-lg">
+<div class="flex items-center gap-space-xs text-sm text-slate-400">
+<span class="hover:text-slate-200 transition-colors cursor-pointer">Portal Klien</span>
+<span class="material-symbols-outlined text-[14px] text-slate-600">chevron_right</span>
+<span class="text-[#00f2fe] font-semibold">Registrasi Anggota</span>
+</div>
+<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-[#131926] border border-white/[0.08] backdrop-blur-md shadow-lg shadow-black/40">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-[#10b981]"></span>
+</span>
+<span class="text-xs font-semibold text-[#6ffbbe]">Batch Peluncuran Q2: 24 Slot Lisensi Tersisa</span>
+</div>
+</div>
+<!-- Main Two Column Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-8 items-start">
+<!-- Left Column: Branding Showcase & Value Proposition -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<!-- Logo & Mission Headline -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<span class="font-quicksand font-extrabold text-3xl tracking-tight">
+<span class="text-[#00f2fe] drop-shadow-[0_0_12px_rgba(0,242,254,0.4)]">aset</span><span class="text-[#10b981] drop-shadow-[0_0_12px_rgba(16,185,129,0.4)]">lab</span>
+</span>
+<span class="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#00f2fe]/15 border border-[#00f2fe]/40 text-[#00f2fe] font-quicksand font-bold text-xs tracking-wide">
+                .id
+              </span>
+</div>
+<h1 class="font-headline text-3xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight">
+              Laboratorium <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] via-[#38ef7d] to-[#10b981] drop-shadow-[0_0_20px_rgba(0,242,254,0.3)]">Solusi Digital</span> untuk Akselerasi Bisnis Anda
+            </h1>
+<p class="text-slate-300 text-base leading-relaxed">
+              Mulai akselerasi proyek digital Anda bersama ekosistem asetlab.id. Kembangkan website modern, arsitektur data, dan aset kreatif berlisensi global dalam hitungan menit.
+            </p>
+</div>
+<!-- 3D Holographic Cyber Deck Visual Card (Obsidian Theme) -->
+<div class="relative overflow-hidden rounded-2xl bg-[#131926] border border-white/[0.08] p-4 shadow-2xl backdrop-blur-xl">
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-[#00f2fe]/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-12 -left-12 w-48 h-48 bg-[#10b981]/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative rounded-xl overflow-hidden bg-[#0c101a] border border-white/[0.06] p-4">
+<div class="flex items-center justify-between pb-3 mb-3 border-b border-white/[0.05]">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981]"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-[#00f2fe] shadow-[0_0_8px_#00f2fe]"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-slate-600"></span>
+</div>
+<span class="text-[11px] font-mono text-[#6ffbbe] uppercase tracking-wider font-semibold">AsetLab Cloud Engine v2.4</span>
+</div>
+<!-- Vector Cyber Isometric Dashboard Preview -->
+<div class="relative h-44 w-full rounded-lg bg-[#070a12] border border-white/[0.04] overflow-hidden flex items-center justify-center p-3">
+<svg class="w-full h-full text-[#00f2fe]" fill="none" viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+<!-- Background Grid Coordinates -->
+<path d="M10 20 H410 M10 60 H410 M10 100 H410 M10 140 H410" stroke="#334155" stroke-dasharray="4 4" stroke-opacity="0.3" stroke-width="1"></path>
+<path d="M50 10 V170 M130 10 V170 M210 10 V170 M290 10 V170 M370 10 V170" stroke="#334155" stroke-dasharray="4 4" stroke-opacity="0.3" stroke-width="1"></path>
+<!-- Radiant Neon Metrics Bars -->
+<rect fill="#00f2fe" fill-opacity="0.25" height="70" rx="3" width="18" x="65" y="70"></rect>
+<rect fill="#00f2fe" height="45" rx="3" width="18" x="65" y="95"></rect>
+<rect fill="#10b981" fill-opacity="0.25" height="90" rx="3" width="18" x="95" y="50"></rect>
+<rect fill="#10b981" height="65" rx="3" width="18" x="95" y="75"></rect>
+<rect fill="#00f2fe" fill-opacity="0.25" height="105" rx="3" width="18" x="125" y="35"></rect>
+<rect fill="#00f2fe" height="85" rx="3" width="18" x="125" y="55"></rect>
+<!-- Glow Sparkline Pulse Area -->
+<path d="M165 120 L205 90 L245 105 L285 45 L325 65 L365 25 L395 50" stroke="#00f2fe" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<path d="M165 120 L205 90 L245 105 L285 45 L325 65 L365 25 L395 50 V140 H165 Z" fill="url(#sparkline-grad)" fill-opacity="0.2"></path>
+<circle class="shadow-[0_0_12px_#10b981]" cx="365" cy="25" fill="#10b981" r="4.5"></circle>
+<circle cx="365" cy="25" r="9" stroke="#6ffbbe" stroke-opacity="0.6" stroke-width="1.5"></circle>
+<!-- Circular Radial Gauge -->
+<circle cx="280" cy="115" r="22" stroke="#1e293b" stroke-width="4"></circle>
+<circle cx="280" cy="115" r="22" stroke="#10b981" stroke-dasharray="138" stroke-dashoffset="35" stroke-linecap="round" stroke-width="4"></circle>
+<text fill="#ffffff" font-family="Inter" font-size="10" font-weight="700" text-anchor="middle" x="280" y="119">+94%</text>
+<defs>
+<linearGradient gradientUnits="userSpaceOnUse" id="sparkline-grad" x1="280" x2="280" y1="25" y2="140">
+<stop stop-color="#00f2fe" stop-opacity="0.7"></stop>
+<stop offset="1" stop-color="#00f2fe" stop-opacity="0"></stop>
+</linearGradient>
+</defs>
+</svg>
+<!-- Floating Live Chip -->
+<div class="absolute bottom-2.5 right-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#162033]/90 border border-white/10 shadow-md backdrop-blur-sm">
+<span class="material-symbols-outlined text-[13px] text-[#10b981]">trending_up</span>
+<span class="text-[11px] font-semibold text-white">Real-Time Metrics</span>
+</div>
+</div>
+<!-- System Spec Summary Footer -->
+<div class="mt-3 pt-2 flex items-center justify-between text-slate-400 text-xs border-t border-white/[0.04]">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-[#00f2fe]">memory</span>
+                  Latensi Rata-rata 14ms
+                </span>
+<span class="text-[#10b981] font-semibold">Ready for Scale</span>
+</div>
+</div>
+</div>
+<!-- Verified Value Pillars (Dark Obsidian Cards #131926) -->
+<div class="flex flex-col gap-2.5">
+<div class="text-xs uppercase tracking-wider text-[#00f2fe] font-bold">Keuntungan Spesial Anggota Baru:</div>
+<div class="flex items-start gap-3 p-3.5 rounded-xl bg-[#131926] border border-white/[0.05] hover:border-[#00f2fe]/30 hover:bg-[#182133] transition-all group">
+<div class="w-9 h-9 rounded-lg bg-[#00f2fe]/10 border border-[#00f2fe]/30 flex items-center justify-center shrink-0 text-[#00f2fe] group-hover:shadow-[0_0_12px_rgba(0,242,254,0.3)] transition-all">
+<span class="material-symbols-outlined text-[19px]">inventory_2</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white group-hover:text-[#00f2fe] transition-colors">140+ UI Kits &amp; Source Codes Proyek</p>
+<p class="text-xs text-slate-300 mt-0.5 leading-relaxed">Akses instan arsitektur website, mobile UI, dan library komponen siap produksi.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3.5 rounded-xl bg-[#131926] border border-white/[0.05] hover:border-[#10b981]/30 hover:bg-[#182133] transition-all group">
+<div class="w-9 h-9 rounded-lg bg-[#10b981]/10 border border-[#10b981]/30 flex items-center justify-center shrink-0 text-[#10b981] group-hover:shadow-[0_0_12px_rgba(16,185,129,0.3)] transition-all">
+<span class="material-symbols-outlined text-[19px]">verified</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white group-hover:text-[#10b981] transition-colors">Lisensi Komersial Seumur Hidup</p>
+<p class="text-xs text-slate-300 mt-0.5 leading-relaxed">Gunakan untuk proyek klien tanpa royalti tambahan dan nikmati pembaruan aset gratis.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3.5 rounded-xl bg-[#131926] border border-white/[0.05] hover:border-[#00f2fe]/30 hover:bg-[#182133] transition-all group">
+<div class="w-9 h-9 rounded-lg bg-[#00f2fe]/10 border border-[#00f2fe]/30 flex items-center justify-center shrink-0 text-[#00f2fe] group-hover:shadow-[0_0_12px_rgba(0,242,254,0.3)] transition-all">
+<span class="material-symbols-outlined text-[19px]">monitoring</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white group-hover:text-[#00f2fe] transition-colors">Dashboard Manajemen Proyek Real-Time</p>
+<p class="text-xs text-slate-300 mt-0.5 leading-relaxed">Pantau status deployment, lisensi token, dan analitik performa server dari satu layar terpusat.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3.5 rounded-xl bg-[#131926] border border-white/[0.05] hover:border-[#10b981]/30 hover:bg-[#182133] transition-all group">
+<div class="w-9 h-9 rounded-lg bg-[#10b981]/10 border border-[#10b981]/30 flex items-center justify-center shrink-0 text-[#10b981] group-hover:shadow-[0_0_12px_rgba(16,185,129,0.3)] transition-all">
+<span class="material-symbols-outlined text-[19px]">support_agent</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white group-hover:text-[#10b981] transition-colors">Prioritas Customer Support 24/7</p>
+<p class="text-xs text-slate-300 mt-0.5 leading-relaxed">Konsultasi teknis cepat via WhatsApp langsung dengan tim engineer kami.</p>
+</div>
+</div>
+</div>
+<!-- Social Proof Community Strip -->
+<div class="p-3.5 rounded-xl bg-[#131926] border border-white/[0.06] flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-slate-800 border-2 border-[#131926] flex items-center justify-center text-[10px] font-bold text-slate-200">AD</div>
+<div class="w-8 h-8 rounded-full bg-[#00f2fe] border-2 border-[#131926] text-[#060910] flex items-center justify-center text-[10px] font-bold">BK</div>
+<div class="w-8 h-8 rounded-full bg-[#10b981] border-2 border-[#131926] text-white flex items-center justify-center text-[10px] font-bold">RS</div>
+<div class="w-8 h-8 rounded-full bg-[#1e293b] border-2 border-[#131926] text-[#6ffbbe] flex items-center justify-center text-[10px] font-bold">+4k</div>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-white">4.850+ Kreator &amp; Agensi</span>
+<span class="text-[11px] text-slate-400">Telah aktif mengakselerasi karya</span>
+</div>
+</div>
+<div class="flex text-[#10b981]">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Registration Form Glass Card (#131926 Obsidian) -->
+<div class="lg:col-span-7">
+<div class="relative rounded-2xl bg-[#131926] border border-white/[0.08] p-6 sm:p-8 lg:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
+<!-- Subtle Glow Overlay Behind Form Header -->
+<div class="absolute top-0 right-1/4 w-72 h-32 bg-[#00f2fe]/10 blur-[80px] pointer-events-none"></div>
+<!-- Card Header -->
+<div class="flex flex-col gap-2 mb-6 relative z-10">
+<div class="flex items-center gap-1.5 text-[#10b981] text-xs font-semibold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px]">app_registration</span>
+<span>Pendaftaran Akun Baru</span>
+</div>
+<h2 class="font-headline text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Buat Akun asetlab.id
+              </h2>
+<p class="text-slate-300 text-sm">
+                Bergabung dengan ribuan desainer, developer, dan agensi inovatif untuk memulai transformasi digital.
+              </p>
+</div>
+<!-- Quick SSO Buttons -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 relative z-10">
+<button class="group flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl bg-[#1b2336] hover:bg-[#222c44] border border-white/[0.08] hover:border-white/[0.18] transition-all text-sm font-medium text-white shadow-sm" type="button">
+<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+<path d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z" fill="#EA4335"></path>
+<path d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z" fill="#4285F4"></path>
+<path d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3 0-.8.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15.2c0 2.8.7 5.5 1.9 7.9l3.7-3.1c-.2-.7-.4-1.5-.4-2.3z" fill="#FBBC05"></path>
+<path d="M12 23.5c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2-6.4-4.8L1.9 17.1C3.7 20.8 7.5 23.5 12 23.5z" fill="#34A853"></path>
+</svg>
+<span class="group-hover:text-[#00f2fe] transition-colors">Daftar dengan Google</span>
+</button>
+<button class="group flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl bg-[#1b2336] hover:bg-[#222c44] border border-white/[0.08] hover:border-white/[0.18] transition-all text-sm font-medium text-white shadow-sm" type="button">
+<svg class="w-4 h-4 shrink-0 fill-current text-white group-hover:text-[#00f2fe] transition-colors" viewBox="0 0 24 24">
+<path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path>
+</svg>
+<span class="group-hover:text-[#00f2fe] transition-colors">Daftar dengan GitHub</span>
+</button>
+</div>
+<!-- Divider -->
+<div class="relative flex items-center justify-center my-6">
+<div class="w-full h-px bg-white/[0.08]"></div>
+<span class="absolute bg-[#131926] px-3 text-[11px] uppercase tracking-wider font-semibold text-slate-400">
+                atau daftar dengan email bisnis / pribadi
+              </span>
+</div>
+<!-- Input Fields Form -->
+<form class="flex flex-col gap-4 relative z-10" id="signupForm" onsubmit="event.preventDefault(); handleRegistration();">
+<!-- Nama Lengkap -->
+<div class="flex flex-col gap-1.5">
+<label class="flex items-center justify-between text-xs font-semibold text-slate-200" for="fullName">
+<span>Nama Lengkap</span>
+<span class="text-[#10b981] font-normal">Wajib diisi</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none">person</span>
+<input class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="fullName" placeholder="Arya Danuarta" required="" type="text" value="Arya Danuarta">
+</div>
+</div>
+<!-- Alamat Email -->
+<div class="flex flex-col gap-1.5">
+<label class="flex items-center justify-between text-xs font-semibold text-slate-200" for="emailInput">
+<span>Alamat Email</span>
+<span class="text-slate-400 font-normal">Konfirmasi lisensi dikirim ke sini</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none">mail</span>
+<input class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="emailInput" placeholder="arya@cyberdeck.id" required="" type="email" value="arya@cyberdeck.id">
+</div>
+</div>
+<!-- WhatsApp Number -->
+<div class="flex flex-col gap-1.5">
+<label class="flex items-center justify-between text-xs font-semibold text-slate-200" for="whatsappInput">
+<span>Nomor WhatsApp</span>
+<span class="text-[#10b981] font-normal">Notifikasi lisensi &amp; akses instan</span>
+</label>
+<div class="flex items-center gap-2">
+<div class="flex items-center justify-center gap-1 px-3 py-2.5 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white text-xs font-bold shrink-0">
+<span>🇮🇩</span>
+<span>+62</span>
+</div>
+<div class="relative flex items-center w-full">
+<span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none">chat</span>
+<input class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="whatsappInput" placeholder="812-9841-0291" required="" type="tel" value="812-9841-0291">
+</div>
+</div>
+</div>
+<!-- Kata Sandi with Interactive Strength Meter -->
+<div class="flex flex-col gap-1.5">
+<label class="flex items-center justify-between text-xs font-semibold text-slate-200" for="passwordInput">
+<span>Kata Sandi</span>
+<span class="text-xs text-[#10b981] font-semibold" id="passwordFeedback">Kekuatan Sandi: Sangat Kuat</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none">lock</span>
+<input class="w-full py-2.5 pl-10 pr-10 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all font-mono" id="passwordInput" required="" type="password" value="CyberAset2025!">
+<button class="absolute right-3.5 text-slate-400 hover:text-white transition-colors" id="togglePassword" onclick="togglePasswordVisibility()" type="button">
+<span class="material-symbols-outlined text-[18px]" id="eyeIcon">visibility</span>
+</button>
+</div>
+<!-- Neon Password Strength Bar -->
+<div class="w-full bg-[#1a2234] h-1.5 rounded-full overflow-hidden mt-1 border border-white/[0.05]">
+<div class="h-full bg-[#10b981] w-full transition-all duration-300 shadow-[0_0_8px_#10b981]" id="strengthBar"></div>
+</div>
+<!-- Rules Badges -->
+<div class="flex flex-wrap items-center gap-2 mt-1">
+<span class="inline-flex items-center gap-1 text-[11px] text-[#10b981]">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> Min. 8 Karakter
+                  </span>
+<span class="text-slate-600">•</span>
+<span class="inline-flex items-center gap-1 text-[11px] text-[#10b981]">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> Huruf Kapital
+                  </span>
+<span class="text-slate-600">•</span>
+<span class="inline-flex items-center gap-1 text-[11px] text-[#10b981]">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> Simbol &amp; Angka
+                  </span>
+</div>
+</div>
+<!-- Terms Checkbox -->
+<label class="flex items-start gap-2.5 cursor-pointer mt-1">
+<input checked="" class="mt-0.5 h-4 w-4 rounded bg-[#1a2234] border-white/20 text-[#10b981] focus:ring-0 focus:ring-offset-0 transition-colors accent-[#10b981] cursor-pointer" id="termsCheck" required="" type="checkbox">
+<span class="text-xs text-slate-300 leading-relaxed">
+                  Saya menyetujui <a class="text-[#00f2fe] hover:underline" href="#">Ketentuan Layanan</a> dan <a class="text-[#00f2fe] hover:underline" href="#">Kebijakan Privasi</a> asetlab.id. Saya memahami bahwa data lisensi diverifikasi secara kriptografis.
+                </span>
+</label>
+<!-- Main Submit CTA Button -->
+<button class="relative overflow-hidden group w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#00f2fe] via-[#22c55e] to-[#10b981] text-[#060910] font-headline font-bold text-sm sm:text-base shadow-[0_4px_25px_rgba(0,242,254,0.35)] hover:shadow-[0_8px_32px_rgba(16,185,129,0.5)] transition-all transform active:scale-[0.99] flex items-center justify-center gap-2 mt-2" id="submitBtn" type="submit">
+<span class="relative z-10 flex items-center gap-2 font-bold tracking-tight">
+                  Buat Akun Sekarang &amp; Klaim Bonus Launching
+                  <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</span>
+<div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+</button>
+</form>
+<!-- Success Notice -->
+<div class="hidden mt-4 p-3.5 rounded-xl bg-[#10b981]/15 border border-[#10b981]/40 text-[#10b981] flex items-start gap-2.5" id="successNotice">
+<span class="material-symbols-outlined text-[20px] text-[#10b981] shrink-0">check_circle</span>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-white">Pendaftaran Berhasil Diinisiasi!</span>
+<span class="text-xs text-slate-300">Tautan verifikasi instan dan bonus starter pack telah dikirim ke WhatsApp &amp; Email Anda.</span>
+</div>
+</div>
+<!-- Bottom Switch to Login -->
+<div class="mt-6 pt-4 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+<p class="text-xs text-slate-300">
+                Sudah memiliki akun? 
+                <a class="text-[#00f2fe] hover:text-[#6ff6ff] font-bold ml-1 transition-colors underline-offset-2 hover:underline" data-path="login" href="#">
+                  Masuk di sini →
+                </a>
+</p>
+<div class="flex items-center gap-1 text-slate-400 text-xs">
+<span class="material-symbols-outlined text-[14px] text-[#10b981]">lock</span>
+<span>Proteksi Data Pelanggan Terjamin</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Feature Strip Bar (Dark Obsidian Container #131926) -->
+<div class="mt-12 p-6 rounded-2xl bg-[#131926] border border-white/[0.06] shadow-xl grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+<div class="flex flex-col items-center gap-1.5 p-2">
+<div class="w-10 h-10 rounded-full bg-[#00f2fe]/10 flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-[#00f2fe] text-[22px]">workspace_premium</span>
+</div>
+<span class="text-sm font-bold text-white">Lisensi Global</span>
+<span class="text-xs text-slate-400">Bebas royalti seumur hidup</span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2">
+<div class="w-10 h-10 rounded-full bg-[#10b981]/10 flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-[#10b981] text-[22px]">bolt</span>
+</div>
+<span class="text-sm font-bold text-white">Aktivasi Instan</span>
+<span class="text-xs text-slate-400">Download dalam 3 detik</span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2">
+<div class="w-10 h-10 rounded-full bg-[#00f2fe]/10 flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-[#00f2fe] text-[22px]">sync</span>
+</div>
+<span class="text-sm font-bold text-white">Pembaruan Rutin</span>
+<span class="text-xs text-slate-400">Update komponen bulanan</span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2">
+<div class="w-10 h-10 rounded-full bg-[#10b981]/10 flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-[#10b981] text-[22px]">savings</span>
+</div>
+<span class="text-sm font-bold text-white">Hemat 85% Budget</span>
+<span class="text-xs text-slate-400">Tanpa rekrut tim eksternal</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Dark Obsidian #0a0e17) -->
+<footer class="relative z-20 w-full px-gutter-mobile lg:px-gutter py-6 border-t border-white/[0.04]">
+<div class="w-full max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+<div class="flex items-center gap-2">
+<span class="font-quicksand font-bold text-sm tracking-tight">
+<span class="text-[#00f2fe]">aset</span><span class="text-[#10b981]">lab</span><span class="text-slate-400">.id</span>
+</span>
+<span class="text-slate-500 text-xs">•</span>
+<p class="text-slate-400 text-xs">© 2025 asetlab.id. Hak Cipta Dilindungi Undang-Undang.</p>
+</div>
+<div class="flex items-center gap-6">
+<a class="text-slate-400 hover:text-[#00f2fe] transition-colors text-xs" data-path="syarat-dan-ketentuan" href="#">Syarat &amp; Ketentuan</a>
+<a class="text-slate-400 hover:text-[#00f2fe] transition-colors text-xs" data-path="kebijakan-privasi" href="#">Kebijakan Privasi</a>
+<a class="text-slate-400 hover:text-[#00f2fe] transition-colors text-xs" data-path="bantuan" href="#">Pusat Bantuan</a>
+</div>
+</div>
+</footer>
+<script>
+    function togglePasswordVisibility() {
+      var passInput = document.getElementById("passwordInput");
+      var eyeIcon = document.getElementById("eyeIcon");
+      if (passInput.type === "password") {
+        passInput.type = "text";
+        eyeIcon.textContent = "visibility_off";
+      } else {
+        passInput.type = "password";
+        eyeIcon.textContent = "visibility";
+      }
+    }
+
+    var passInputEl = document.getElementById("passwordInput");
+    var strengthBar = document.getElementById("strengthBar");
+    var feedbackEl = document.getElementById("passwordFeedback");
+
+    if (passInputEl) {
+      passInputEl.addEventListener("input", function (e) {
+        var val = e.target.value;
+        if (val.length === 0) {
+          strengthBar.style.width = "0%";
+          feedbackEl.textContent = "Kekuatan Sandi: Kosong";
+          feedbackEl.className = "text-xs text-slate-400 font-normal";
+        } else if (val.length < 6) {
+          strengthBar.style.width = "25%";
+          strengthBar.className = "h-full bg-red-500 transition-all duration-300 shadow-[0_0_8px_#ef4444]";
+          feedbackEl.textContent = "Kekuatan Sandi: Lemah";
+          feedbackEl.className = "text-xs text-red-400 font-semibold";
+        } else if (val.length < 10) {
+          strengthBar.style.width = "60%";
+          strengthBar.className = "h-full bg-[#00f2fe] transition-all duration-300 shadow-[0_0_8px_#00f2fe]";
+          feedbackEl.textContent = "Kekuatan Sandi: Sedang";
+          feedbackEl.className = "text-xs text-[#00f2fe] font-semibold";
+        } else {
+          strengthBar.style.width = "100%";
+          strengthBar.className = "h-full bg-[#10b981] transition-all duration-300 shadow-[0_0_8px_#10b981]";
+          feedbackEl.textContent = "Kekuatan Sandi: Sangat Kuat";
+          feedbackEl.className = "text-xs text-[#10b981] font-semibold";
+        }
+      });
+    }
+
+    function handleRegistration() {
+      var notice = document.getElementById("successNotice");
+      var submitBtn = document.getElementById("submitBtn");
+      if (notice) {
+        notice.classList.remove("hidden");
+        notice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">sync</span> Memproses Akun...';
+        setTimeout(function() {
+          submitBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">done</span> Akun Terdaftar!';
+        }, 1200);
+      }
+    }
+  </script>
+</body></html>
