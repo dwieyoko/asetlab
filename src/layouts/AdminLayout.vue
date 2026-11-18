@@ -76,21 +76,28 @@
       </div>
 
       <!-- Bottom Profile Panel -->
-      <div class="px-space-md">
-        <div class="p-space-sm rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <img 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCHCeZo0BiPaq-zAbEFfp48AYriqBbCnJu2PTpOd4Kxnk9PtH3tvMmfdPqpsJVs2HDnsX0uFUiCY7YPnAuBO6wamOZfu_hQkCAZtadSIgVM-JhjdI3DiSkJpNvTI25BdCVWDfPWBWVdUumuQypcEbzeZDUFoUZh_D61XjJJKUtFMWreDUuxX3PKpmHpaNAlnl_ofhEjLxP0RpfN4b-u29NuK0DwYyPHNtPnatNlV5MmVJlceiYzwjmfQ" 
-              alt="Admin" 
-              class="w-8 h-8 rounded-full object-cover ring-1 ring-primary-container/40"
-            />
-            <div class="flex flex-col">
-              <span class="font-label-md text-label-md text-on-surface leading-tight font-semibold">Super Admin</span>
-              <span class="font-label-sm text-[11px] text-outline">admin@asetlab.id</span>
+      <div class="px-space-md space-y-2">
+        <div class="p-space-sm rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-8 h-8 rounded-full bg-primary-container/20 border border-primary-container/40 flex items-center justify-center text-primary-container font-bold text-xs shrink-0">
+              {{ adminInitials }}
+            </div>
+            <div class="flex flex-col min-w-0">
+              <span class="font-label-md text-label-md text-on-surface leading-tight font-semibold truncate">{{ user?.name || 'Admin AsetLab' }}</span>
+              <span class="font-label-sm text-[11px] text-outline truncate">{{ user?.email || 'admin@asetlab.id' }}</span>
             </div>
           </div>
-          <span class="w-2 h-2 rounded-full bg-secondary"></span>
+          <span class="w-2 h-2 rounded-full bg-secondary shrink-0"></span>
         </div>
+
+        <button
+          @click="handleLogout"
+          type="button"
+          class="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-surface-container hover:bg-error-container/30 text-on-surface-variant hover:text-error border border-outline-variant/20 transition-all text-xs font-semibold"
+        >
+          <span class="material-symbols-outlined text-[16px]">logout</span>
+          <span>Keluar dari Admin Console</span>
+        </button>
       </div>
     </aside>
 
@@ -159,13 +166,33 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import BrandLogo from '@/components/BrandLogo.vue';
+import { useAuth } from '@/stores/auth';
+
+const router = useRouter();
+const { user, logout } = useAuth();
 
 const sidebarOpen = ref(false);
 const searchQuery = ref('');
 
+const adminInitials = computed(() => {
+  const name = user.value?.name || 'AD';
+  return name
+    .split(' ')
+    .slice(0, 2)
+    .map((p) => p[0])
+    .join('')
+    .toUpperCase();
+});
+
+function handleLogout() {
+  logout();
+  router.push('/login');
+}
+
 function notifyClicked() {
-  alert('Notifikasi: Seluruh layanan dan gateway pembayaran normal. 1 pesanan baru menunggu konfirmasi.');
+  alert('Notifikasi: Seluruh layanan dan gateway pembayaran normal.');
 }
 </script>

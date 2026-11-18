@@ -104,7 +104,7 @@
             class="group relative flex flex-col bg-surface-container-low/80 backdrop-blur-xl rounded-2xl p-space-md shadow-xl hover:shadow-[0_12px_32px_rgba(0,242,254,0.18)] transition-all duration-300 border border-outline-variant/20"
           >
             <!-- Card Image Cover -->
-            <div class="relative w-full h-56 rounded-xl overflow-hidden bg-surface-container-highest">
+            <router-link :to="`/produk/${item.slug || item.id}`" class="relative block w-full h-56 rounded-xl overflow-hidden bg-surface-container-highest">
               <img 
                 :src="item.image" 
                 :alt="item.title"
@@ -123,14 +123,12 @@
               </div>
 
               <!-- Quick preview action -->
-              <button 
-                @click="buyProduct(item)" 
-                class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 inline-flex items-center gap-1 px-space-md py-1 rounded-full bg-surface-container-high/90 text-primary-container font-label-sm text-label-sm backdrop-blur-md shadow-md hover:bg-surface-bright" 
-                type="button"
+              <span 
+                class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 inline-flex items-center gap-1 px-space-md py-1 rounded-full bg-surface-container-high/90 text-primary-container font-label-sm text-label-sm backdrop-blur-md shadow-md"
               >
-                <span class="material-symbols-outlined text-[16px]">visibility</span> Preview Live
-              </button>
-            </div>
+                <span class="material-symbols-outlined text-[16px]">visibility</span> Lihat Detail
+              </span>
+            </router-link>
 
             <!-- Content Area -->
             <div class="flex flex-col flex-1 pt-space-md space-y-space-sm">
@@ -139,13 +137,13 @@
                 <div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm">
                   <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
                   <span class="font-bold text-primary">{{ item.rating || 4.9 }}</span>
-                  <span class="text-on-surface-variant font-medium">({{ item.downloads || 0 }} unduhan)</span>
+                  <span class="text-on-surface-variant font-medium">({{ item.downloads || 0 }} terjual)</span>
                 </div>
               </div>
 
-              <h3 class="font-headline-sm text-headline-sm text-primary group-hover:text-primary-container transition-colors line-clamp-1 font-bold">
+              <router-link :to="`/produk/${item.slug || item.id}`" class="font-headline-sm text-headline-sm text-primary group-hover:text-primary-container transition-colors line-clamp-1 font-bold">
                 {{ item.title }}
-              </h3>
+              </router-link>
 
               <p class="font-body-sm text-body-sm line-clamp-2 text-on-surface">
                 {{ item.description || 'Sistem komponen Figma dan template arsitektur modern siap pakai berstandar enterprise.' }}
@@ -155,26 +153,38 @@
               <div class="pt-space-sm mt-auto border-t border-surface-container-highest/30">
                 <div class="flex items-baseline justify-between mb-space-sm">
                   <div>
-                    <span class="font-body-sm text-body-sm line-through text-outline font-medium">{{ formatRupiah(item.price * 1.5) }}</span>
+                    <span
+                      v-if="item.original_price && item.original_price > item.price"
+                      class="font-body-sm text-body-sm line-through text-outline font-medium"
+                    >
+                      {{ formatRupiah(item.original_price) }}
+                    </span>
                     <div class="font-headline-md text-headline-md text-primary font-extrabold">{{ formatRupiah(item.price) }}</div>
                   </div>
-                  <span class="text-secondary font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary/15 font-bold border border-secondary/30">Hemat 33%</span>
+                  <span
+                    v-if="getDiscountPercent(item) > 0"
+                    class="text-secondary font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary/15 font-bold border border-secondary/30"
+                  >
+                    Hemat {{ getDiscountPercent(item) }}%
+                  </span>
                 </div>
 
                 <div class="grid grid-cols-2 gap-space-xs pt-1">
                   <button 
-                    @click="buyProduct(item)"
-                    class="inline-flex items-center justify-center py-2 px-3 rounded-full bg-surface-container-high text-primary font-label-md text-label-md hover:bg-surface-bright transition-colors text-center border border-outline-variant/30 font-semibold" 
+                    @click="handleAddToCart(item)"
+                    class="inline-flex items-center justify-center gap-1 py-2 px-3 rounded-full bg-surface-container-high text-primary font-label-md text-label-md hover:bg-surface-bright transition-colors text-center border border-outline-variant/30 font-semibold" 
                     type="button"
                   >
-                    Detail
+                    <span class="material-symbols-outlined text-[16px]">{{ hasInCart(item.id) ? 'check' : 'add_shopping_cart' }}</span>
+                    <span>{{ hasInCart(item.id) ? 'Di Keranjang' : 'Keranjang' }}</span>
                   </button>
                   <button 
-                    @click="buyProduct(item)"
-                    class="inline-flex items-center justify-center py-2 px-3 rounded-full bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-label-md text-label-md font-bold shadow-[0_2px_14px_rgba(0,242,254,0.3)] hover:brightness-110 transition-all" 
+                    @click="buyNow(item)"
+                    class="inline-flex items-center justify-center gap-1 py-2 px-3 rounded-full bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-label-md text-label-md font-bold shadow-[0_2px_14px_rgba(0,242,254,0.3)] hover:brightness-110 transition-all" 
                     type="button"
                   >
-                    Unduh Aset
+                    <span class="material-symbols-outlined text-[16px]">bolt</span>
+                    <span>Beli Instan</span>
                   </button>
                 </div>
               </div>
@@ -242,12 +252,12 @@
                   </div>
                   <p class="font-label-sm text-label-sm text-secondary mt-1 font-bold">Tersisa 14 Slot Lisensi Hari Ini</p>
                 </div>
-                <button class="w-full inline-flex items-center justify-center gap-2 py-space-sm px-space-lg rounded-full bg-gradient-to-r from-primary-container via-secondary to-primary-container text-surface-container-lowest font-label-lg text-label-lg font-bold shadow-[0_4px_24px_rgba(0,242,254,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all" type="button">
+                <button @click="claimDeveloperBundle" class="w-full inline-flex items-center justify-center gap-2 py-space-sm px-space-lg rounded-full bg-gradient-to-r from-primary-container via-secondary to-primary-container text-surface-container-lowest font-label-lg text-label-lg font-bold shadow-[0_4px_24px_rgba(0,242,254,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all" type="button">
                   <span class="material-symbols-outlined text-[20px]">shopping_bag</span>
                   Klaim Bundle Sekarang
                 </button>
                 <span class="block font-label-sm text-label-sm text-on-surface font-medium">
-                  Garansi 100% Uang Kembali 7 Hari
+                  Otomatis terapkan kupon promo LAUNCH20 di Checkout
                 </span>
               </div>
             </div>
@@ -255,64 +265,40 @@
         </div>
       </section>
     </div>
-
-    <!-- Checkout Modal Simulation -->
-    <div v-if="selectedProduct" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-      <div class="relative w-full max-w-md rounded-3xl bg-surface-container border border-outline-variant/40 p-6 md:p-8 shadow-2xl">
-        <button @click="selectedProduct = null" class="absolute top-5 right-5 text-outline hover:text-on-surface">
-          <span class="material-symbols-outlined">close</span>
-        </button>
-        <div class="w-12 h-12 rounded-2xl bg-primary-container/20 flex items-center justify-center text-primary-container mb-4">
-          <span class="material-symbols-outlined text-[24px]">shopping_cart_checkout</span>
-        </div>
-        <h3 class="font-headline-sm text-headline-sm text-primary font-bold mb-1">{{ selectedProduct.title }}</h3>
-        <p class="text-xs text-outline mb-4">Lisensi Standar Komersial (Single Project/Agency) • SKU: {{ selectedProduct.sku }}</p>
-
-        <div class="p-4 rounded-2xl bg-surface-container-low mb-6 flex justify-between items-center border border-outline-variant/20">
-          <span class="text-sm text-on-surface-variant">Total Pembayaran:</span>
-          <span class="text-xl font-bold text-secondary">{{ formatRupiah(selectedProduct.price) }}</span>
-        </div>
-
-        <div class="space-y-3">
-          <button @click="confirmDownload" class="w-full py-3.5 rounded-full bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-bold text-sm hover:brightness-110 shadow-lg flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-[18px]">bolt</span>
-            Bayar Instan via QRIS / Virtual Account
-          </button>
-          <button @click="selectedProduct = null" class="w-full py-2.5 rounded-full text-sm text-outline hover:text-on-surface">Batal</button>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { products, formatRupiah } from '@/data/mockData';
+import { useCart } from '@/stores/cart';
+
+const router = useRouter();
+const { addToCart, hasInCart, openCartDrawer } = useCart();
 
 const searchQuery = ref('');
 const activeCategory = ref('Semua');
 const sortBy = ref('populer');
-const selectedProduct = ref(null);
 
 const categories = ['Semua', 'UI Kit', 'Source Code', 'Template & OS', '3D & Grafis'];
 
-// Only show live products to public visitors
 const liveProducts = computed(() => {
-  return products.value.filter(p => p.status === 'Live');
+  return products.value.filter((p) => p.status === 'Live');
 });
 
 const filteredProducts = computed(() => {
-  let list = liveProducts.value.filter(p => {
+  let list = liveProducts.value.filter((p) => {
     const matchCat = activeCategory.value === 'Semua' || p.category === activeCategory.value;
     const q = searchQuery.value.toLowerCase().trim();
-    const matchQ = !q || 
-      p.title.toLowerCase().includes(q) || 
-      (p.description && p.description.toLowerCase().includes(q)) || 
+    const matchQ =
+      !q ||
+      p.title.toLowerCase().includes(q) ||
+      (p.description && p.description.toLowerCase().includes(q)) ||
       (p.sku && p.sku.toLowerCase().includes(q));
     return matchCat && matchQ;
   });
 
-  // Sorting
   if (sortBy.value === 'terbaru') {
     list = [...list].reverse();
   } else if (sortBy.value === 'harga-rendah') {
@@ -322,19 +308,34 @@ const filteredProducts = computed(() => {
   } else if (sortBy.value === 'rating') {
     list = [...list].sort((a, b) => (b.rating || 0) - (a.rating || 0));
   } else {
-    // populer by downloads
     list = [...list].sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
   }
 
   return list;
 });
 
-function buyProduct(item) {
-  selectedProduct.value = item;
+function getDiscountPercent(item) {
+  if (!item?.original_price || item.original_price <= item.price) return 0;
+  return Math.round(((item.original_price - item.price) / item.original_price) * 100);
 }
 
-function confirmDownload() {
-  alert(`Pembayaran berhasil! Tautan unduhan & lisensi untuk "${selectedProduct.value.title}" telah dikirim ke email Anda.`);
-  selectedProduct.value = null;
+function handleAddToCart(item) {
+  if (hasInCart(item.id)) {
+    openCartDrawer();
+  } else {
+    addToCart(item, { openDrawer: true });
+  }
+}
+
+function buyNow(item) {
+  addToCart(item, { openDrawer: false });
+  router.push('/checkout');
+}
+
+function claimDeveloperBundle() {
+  liveProducts.value.slice(0, 3).forEach((item) => {
+    addToCart(item, { openDrawer: false });
+  });
+  router.push({ path: '/checkout', query: { coupon: 'LAUNCH20' } });
 }
 </script>

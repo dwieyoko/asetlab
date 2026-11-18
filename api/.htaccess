@@ -1,0 +1,30 @@
+# ========================================================
+# AsetLab API Security Rules (Apache / cPanel DomaiNesia)
+# ========================================================
+
+Options -Indexes
+
+# Pastikan Header Authorization diteruskan ke PHP (penting untuk JWT di cPanel)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP:Authorization} ^(.*)
+  RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+  # Blokir akses HTTP langsung ke folder internal helpers/ dan services/
+  RewriteRule ^(helpers|services)/ - [F,L]
+</IfModule>
+
+<IfModule mod_setenvif.c>
+  SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+</IfModule>
+
+# Blokir akses langsung ke file konfigurasi & rahasia
+<FilesMatch "^(config\.php|secrets\.php|secrets\.example\.php|\.env)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>

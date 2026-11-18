@@ -37,20 +37,8 @@
 <!-- Filter Category Tabs -->
 <section class="w-full px-margin pb-space-xl">
 <div class="max-w-6xl mx-auto flex items-center gap-space-xs sm:gap-space-sm overflow-x-auto pb-2 scrollbar-none">
-<button  class="category-filter-btn px-space-lg py-space-xs rounded-full font-label-md text-label-md transition-all duration-300 bg-gradient-to-r from-primary-container to-secondary text-on-primary font-bold shadow-[0_4px_18px_rgba(0,242,254,0.35)]" data-filter="all" type="button" @click="activeFilter = 'all'" :class="activeFilter === 'all' ? 'bg-gradient-to-r from-primary-container to-secondary text-on-primary shadow-[0_4px_18px_rgba(0,242,254,0.35)] font-bold' : 'bg-surface-container-high/60 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest'">
-          Semua Proyek
-        </button>
-<button class="category-filter-btn px-space-lg py-space-xs rounded-full font-label-md text-label-md transition-all duration-300 bg-surface-container-high/60 text-on-surface-variant hover:text-primary hover:bg-surface-container-highest" data-filter="web-platform" type="button">
-          Web Platform
-        </button>
-<button class="category-filter-btn px-space-lg py-space-xs rounded-full font-label-md text-label-md transition-all duration-300 bg-surface-container-high/60 text-on-surface-variant hover:text-primary hover:bg-surface-container-highest" data-filter="mobile-app" type="button">
-          Mobile App
-        </button>
-<button class="category-filter-btn px-space-lg py-space-xs rounded-full font-label-md text-label-md transition-all duration-300 bg-surface-container-high/60 text-on-surface-variant hover:text-primary hover:bg-surface-container-highest" data-filter="digital-branding" type="button">
-          Digital Branding
-        </button>
-<button class="category-filter-btn px-space-lg py-space-xs rounded-full font-label-md text-label-md transition-all duration-300 bg-surface-container-high/60 text-on-surface-variant hover:text-primary hover:bg-surface-container-highest" data-filter="social-growth" type="button">
-          Social Media Growth
+<button v-for="tab in filterTabs" :key="tab.value" @click="activeFilter = tab.value" type="button" class="category-filter-btn px-space-lg py-space-xs rounded-full font-label-md text-label-md transition-all duration-300 whitespace-nowrap" :class="activeFilter === tab.value ? 'bg-gradient-to-r from-primary-container to-secondary text-on-primary shadow-[0_4px_18px_rgba(0,242,254,0.35)] font-bold' : 'bg-surface-container-high/60 text-on-surface-variant hover:text-primary hover:bg-surface-container-highest'">
+          {{ tab.label }}
         </button>
 </div>
 </section>
@@ -58,7 +46,7 @@
 <section class="w-full px-margin pb-space-xl">
 <div class="max-w-6xl mx-auto space-y-space-xl" id="projects-container">
 <!-- Case 1: FinPay Nusantara (Featured Lead) -->
-<article class="project-card group relative rounded-3xl bg-surface-container-high/40 backdrop-blur-xl p-space-lg md:p-space-xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-[0_12px_36px_rgba(0,242,254,0.15)]" data-category="web-platform">
+<article v-show="matchesFilter('web-platform')" class="project-card group relative rounded-3xl bg-surface-container-high/40 backdrop-blur-xl p-space-lg md:p-space-xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-[0_12px_36px_rgba(0,242,254,0.15)]" data-category="web-platform">
 <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-primary-container/10 blur-[80px] pointer-events-none group-hover:bg-primary-container/20 transition-all duration-500"></div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center relative z-10">
 <!-- Left: Case Study Detail -->
@@ -147,7 +135,7 @@
 </div>
 </article>
 <!-- Case 2: KopiKultur Indonesia (Split Reverse) -->
-<article class="project-card group relative rounded-3xl bg-surface-container-high/40 backdrop-blur-xl p-space-lg md:p-space-xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-[0_12px_36px_rgba(78,222,163,0.15)]" data-category="web-platform">
+<article v-show="matchesFilter('web-platform')" class="project-card group relative rounded-3xl bg-surface-container-high/40 backdrop-blur-xl p-space-lg md:p-space-xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-[0_12px_36px_rgba(78,222,163,0.15)]" data-category="web-platform">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center relative z-10">
 <!-- Left: Mockup Visual -->
 <div class="lg:col-span-5 order-2 lg:order-1 relative">
@@ -222,7 +210,7 @@
 <!-- Two Columns Bento: Cases 3 & 4 -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-space-xl">
 <!-- Case 3: LogistiKu -->
-<article class="project-card group rounded-3xl bg-surface-container-high/40 backdrop-blur-xl p-space-lg md:p-space-xl flex flex-col justify-between shadow-2xl transition-all duration-500 hover:shadow-[0_12px_36px_rgba(0,242,254,0.12)]" data-category="web-platform">
+<article v-show="matchesFilter('web-platform')" class="project-card group rounded-3xl bg-surface-container-high/40 backdrop-blur-xl p-space-lg md:p-space-xl flex flex-col justify-between shadow-2xl transition-all duration-500 hover:shadow-[0_12px_36px_rgba(0,242,254,0.12)]" data-category="web-platform">
 <div class="space-y-space-md">
 <div class="relative rounded-2xl bg-surface-container-lowest overflow-hidden p-space-xs">
 <img class="w-full h-56 object-cover rounded-xl" data-alt="High-density logistics fleet management web control tower interface with dark UI theme. Map telemetry showing live GPS truck routes across Indonesian archipelago, telemetry temperature gauges, and instant fuel optimization graphs in luminous cyan and neon mint." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr5N9LjHNQOF86nsaULleeF0Zhe7qivXnhGNNiCgXefP7lbizaq5cBNqLqFmXZ77QEf75SfvzzI2Ys5aiY6FU3lHpR1WFzpY07xUxVLoXRL-0JgxKs1A_f9NosKZ_IKKfLGI4wyVc3lWbqGlOO8KCtlDZ5rTXlIjNn08yu6eBAQGMLP-xRnYuqu9CdOEVf44MRH8_CxNIegWmdTlBHoe_az9ISB9BsjkK_xyKQqGC3BsFGi5Xve08Qcg">
@@ -264,7 +252,7 @@
 </div>
 </article>
 <!-- Case 4: TechNusa Summit -->
-<article class="project-card group rounded-3xl bg-surface-container-high/40 backdrop-blur-xl p-space-lg md:p-space-xl flex flex-col justify-between shadow-2xl transition-all duration-500 hover:shadow-[0_12px_36px_rgba(78,222,163,0.12)]" data-category="digital-branding">
+<article v-show="matchesFilter('digital-branding')" class="project-card group rounded-3xl bg-surface-container-high/40 backdrop-blur-xl p-space-lg md:p-space-xl flex flex-col justify-between shadow-2xl transition-all duration-500 hover:shadow-[0_12px_36px_rgba(78,222,163,0.12)]" data-category="digital-branding">
 <div class="space-y-space-md">
 <div class="relative rounded-2xl bg-surface-container-lowest overflow-hidden p-space-xs">
 <img class="w-full h-56 object-cover rounded-xl" data-alt="Futuristic conference landing page showcase on a futuristic curved display. Deep dark obsidian glass aesthetic, 3D neon holographic speaker badge preview, high-velocity digital ticketing checkout, and luminous cyan countdown timers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIvmEuCUtzJDR-uyJqebbMC8EK6VPtTA0bWD6imuvFGogKTt9vfzms3wbpSrGdf2Jn6M4IZUIVTpu3wpSyKhftI7U2itKRFwMrLHxz18EGuN4MdVAyFbaKi9e0heFJFp4Q2M49-55pu1-nkgGxpkdtLm_-KzpXJ6-XLyGp9YlxKH41b8UFuYTI8ZKevvJKhoJ8CAK0INydu7MRKPkOxYF5vxtfIMAoZpZDogrbXuDZf1j96hNIYxVsAw">
@@ -368,21 +356,19 @@
             Konsultasikan ide arsitektur web, aplikasi multiplatform, dan strategi aset digital Anda secara gratis dengan tim ahli kami.
           </p>
 <div class="flex flex-col sm:flex-row items-center justify-center gap-space-md pt-space-sm">
-<a class="w-full sm:w-auto inline-flex items-center justify-center gap-space-xs px-space-xl py-space-md rounded-full bg-gradient-to-r from-primary-container to-secondary text-on-primary font-label-lg text-label-lg font-bold shadow-[0_4px_24px_rgba(0,242,254,0.4)] hover:brightness-110 transition-all" href="#">
-<span class="">Mulai Diskusi Proyek</span>
+<router-link class="w-full sm:w-auto inline-flex items-center justify-center gap-space-xs px-space-xl py-space-md rounded-full bg-gradient-to-r from-primary-container to-secondary text-on-primary font-label-lg text-label-lg font-bold shadow-[0_4px_24px_rgba(0,242,254,0.4)] hover:brightness-110 transition-all" to="/layanan">
+<span>Mulai Diskusi Proyek</span>
 <span class="material-symbols-outlined text-[20px]">send</span>
-</a>
-<a class="w-full sm:w-auto inline-flex items-center justify-center gap-space-xs px-space-lg py-space-md rounded-full bg-surface-container-highest text-primary font-label-lg text-label-lg font-bold hover:bg-surface-bright transition-all" href="#">
-<span class="material-symbols-outlined text-[20px]">calendar_month</span>
-<span class="">Jadwalkan Demo Call</span>
-</a>
+</router-link>
+<router-link class="w-full sm:w-auto inline-flex items-center justify-center gap-space-xs px-space-lg py-space-md rounded-full bg-surface-container-highest text-primary font-label-lg text-label-lg font-bold hover:bg-surface-bright transition-all" to="/produk">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+<span>Jelajahi Produk Digital</span>
+</router-link>
 </div>
 </div>
 </div>
 </section>
 </div>
-<!-- Interactive Filter Logic -->
-
 </div>
   </div>
 </template>
@@ -392,6 +378,15 @@
 import { ref } from 'vue';
 
 const activeFilter = ref('all');
+const filterTabs = [
+  { label: 'Semua Proyek', value: 'all' },
+  { label: 'Web Platform', value: 'web-platform' },
+  { label: 'Digital Branding', value: 'digital-branding' },
+];
+
+function matchesFilter(cat) {
+  return activeFilter.value === 'all' || activeFilter.value === cat;
+}
 </script>
 
 <style scoped>.text-on-surface-variant { color: #cbd5e1 !important; } .project-card p { color: #e2e8f0 !important; } .project-card blockquote, .project-card .italic { color: #f1f5f9 !important; } .project-card .font-headline-md, .project-card .font-headline-sm { color: #ffffff !important; } .project-card span.bg-surface-container-highest { color: #f8fafc !important; background-color: #262a34 !important; border: 1px solid rgba(255,255,255,0.12) !important; } footer p, footer li a, footer span { color: #cbd5e1 !important; } footer h4 { color: #ffffff !important; } .text-outline { color: #94a3b8 !important; }</style>

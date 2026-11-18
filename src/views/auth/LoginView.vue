@@ -143,6 +143,11 @@
 </div>
 <!-- Main Authentication Form -->
 <form @submit.prevent="handleLogin" class="flex flex-col gap-space-md">
+<!-- Error Banner -->
+<div v-if="errorMessage" class="p-3.5 rounded-xl bg-red-500/10 border border-red-500/40 text-red-300 text-xs flex items-start gap-2.5 text-left">
+<span class="material-symbols-outlined text-[18px] text-red-400 shrink-0">error</span>
+<span>{{ errorMessage }}</span>
+</div>
 <!-- Email Field -->
 <div class="flex flex-col gap-space-xs text-left">
 <label class="font-label-lg text-label-lg text-white flex items-center justify-between" for="emailInput">
@@ -171,14 +176,14 @@
 <!-- Remember Me & Session Checkbox -->
 <div class="flex items-center justify-between pt-1">
 <label class="flex items-center gap-space-sm cursor-pointer select-none">
-<input class="w-4 h-4 rounded accent-[#00f2fe] bg-[#1e2433] border-slate-700 cursor-pointer" id="rememberCheckbox" type="checkbox">
+<input v-model="rememberMe" class="w-4 h-4 rounded accent-[#00f2fe] bg-[#1e2433] border-slate-700 cursor-pointer" id="rememberCheckbox" type="checkbox">
 <span class="font-label-md text-label-md text-[#cbd5e1]">Ingat sesi saya selama 30 hari</span>
 </label>
 </div>
 <!-- Submit CTA Button (Gradient Pill with Glow) -->
-<button class="w-full relative group mt-space-xs py-3 px-space-lg rounded-full bg-gradient-to-r from-[#00f2fe] via-[#00dce6] to-[#4edea3] text-[#0a0e17] font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-space-xs tracking-wide shadow-[0_4px_24px_rgba(0,242,254,0.35)] hover:shadow-[0_6px_32px_rgba(0,242,254,0.55)] hover:opacity-95 active:scale-[0.99] transition-all duration-200" id="submitAuthBtn" type="submit">
-<span>Masuk Sekarang</span>
-<span class="material-symbols-outlined text-[22px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+<button :disabled="isLoading" class="w-full relative group mt-space-xs py-3 px-space-lg rounded-full bg-gradient-to-r from-[#00f2fe] via-[#00dce6] to-[#4edea3] text-[#0a0e17] font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-space-xs tracking-wide shadow-[0_4px_24px_rgba(0,242,254,0.35)] hover:shadow-[0_6px_32px_rgba(0,242,254,0.55)] hover:opacity-95 active:scale-[0.99] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed" id="submitAuthBtn" type="submit">
+<span>{{ isLoading ? 'Memverifikasi...' : 'Masuk Sekarang' }}</span>
+<span class="material-symbols-outlined text-[22px] group-hover:translate-x-1 transition-transform">{{ isLoading ? 'progress_activity' : 'arrow_forward' }}</span>
 </button>
 </form>
 <!-- Register Referral -->
@@ -208,21 +213,41 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import BrandLogo from '@/components/BrandLogo.vue';
+import { useAuth } from '@/stores/auth';
+import { syncWithRemoteDatabase } from '@/data/mockData';
 
 const router = useRouter();
+const route = useRoute();
+const { login } = useAuth();
+
 const email = ref('');
 const password = ref('');
+const rememberMe = ref(false);
 const showPassword = ref(false);
 const isLoading = ref(false);
+const errorMessage = ref('');
 
-function handleLogin() {
+async function handleLogin() {
+  errorMessage.value = '';
   isLoading.value = true;
-  setTimeout(() => {
+  try {
+    const res = await login(email.value.trim(), password.value, rememberMe.value);
+    await syncWithRemoteDatabase();
+
+    const redirectTarget = typeof route.query.redirect === 'string' ? route.query.redirect : '';
+    if (redirectTarget) {
+      router.push(redirectTarget);
+    } else if (res.user?.role === 'admin') {
+      router.push('/admin');
+    } else {
+      router.push('/akun');
+    }
+  } catch (err) {
+    errorMessage.value = err?.message || 'Gagal masuk. Periksa kembali email dan kata sandi Anda.';
+  } finally {
     isLoading.value = false;
-    alert(`Selamat datang kembali di asetlab.id! Anda berhasil masuk sebagai ${email.value}.`);
-    router.push('/admin');
-  }, 600);
+  }
 }
 </script>

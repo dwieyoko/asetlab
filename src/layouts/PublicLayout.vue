@@ -42,31 +42,79 @@
 
         <!-- Right Action Buttons -->
         <div class="flex items-center gap-space-sm sm:gap-space-md">
-          <!-- Login Link -->
-          <router-link 
-            to="/login" 
-            class="hidden md:inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full text-on-surface-variant hover:text-white hover:bg-surface-container font-label-md transition-colors"
+          <!-- Cart Button with Live Badge -->
+          <button
+            @click="openCartDrawer"
+            type="button"
+            class="relative inline-flex items-center justify-center w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-on-surface hover:text-primary-container transition-all"
+            title="Keranjang Produk Digital"
           >
-            <span class="material-symbols-outlined text-[18px]">lock</span>
-            <span>Masuk</span>
-          </router-link>
+            <span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+            <span
+              v-if="cartCount > 0"
+              class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest text-[10px] font-extrabold flex items-center justify-center shadow"
+            >
+              {{ cartCount }}
+            </span>
+          </button>
 
-          <!-- Quick Switcher to Backoffice Admin -->
+          <!-- Guest Auth Links -->
+          <template v-if="!isAuthenticated">
+            <router-link 
+              to="/login" 
+              class="hidden md:inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full text-on-surface-variant hover:text-white hover:bg-surface-container font-label-md transition-colors"
+            >
+              <span class="material-symbols-outlined text-[18px]">lock</span>
+              <span>Masuk</span>
+            </router-link>
+
+            <router-link 
+              to="/register" 
+              class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-secondary text-label-sm font-semibold border border-secondary/20 transition-all hover:scale-105"
+            >
+              <span class="material-symbols-outlined text-[16px]">person_add</span>
+              <span>Daftar</span>
+            </router-link>
+          </template>
+
+          <!-- Authenticated User Controls -->
+          <template v-else>
+            <router-link 
+              v-if="isAdmin"
+              to="/admin" 
+              class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-secondary text-label-sm font-semibold border border-secondary/20 transition-all hover:scale-105"
+              title="Akses Portal Dashboard Admin"
+            >
+              <span class="material-symbols-outlined text-[16px]">dashboard</span>
+              <span>Dashboard Admin</span>
+            </router-link>
+
+            <router-link
+              to="/akun"
+              class="hidden md:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-xs text-on-surface hover:text-primary transition-colors"
+              title="Library Produk & Riwayat Transaksi Saya"
+            >
+              <span class="w-2 h-2 rounded-full bg-secondary"></span>
+              <span class="font-semibold max-w-[120px] truncate">{{ user?.name || user?.email }}</span>
+            </router-link>
+
+            <button
+              @click="handleLogout"
+              type="button"
+              class="hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-on-surface-variant hover:text-error hover:bg-error-container/20 font-label-md transition-colors"
+              title="Keluar dari akun"
+            >
+              <span class="material-symbols-outlined text-[18px]">logout</span>
+              <span>Keluar</span>
+            </button>
+          </template>
+
           <router-link 
-            to="/admin" 
-            class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-secondary text-label-sm font-semibold border border-secondary/20 transition-all hover:scale-105"
-            title="Akses Portal Dashboard Admin"
-          >
-            <span class="material-symbols-outlined text-[16px]">dashboard</span>
-            <span>Dashboard</span>
-          </router-link>
-
-          <a 
-            href="#konsultasi" 
+            to="/produk" 
             class="inline-flex items-center justify-center px-space-lg py-space-sm rounded-full bg-gradient-to-r from-primary-container to-secondary text-on-primary font-label-lg text-label-lg font-bold shadow-[0_4px_20px_rgba(0,242,254,0.35)] hover:brightness-110 transition-all duration-300"
           >
-            Mulai Kolaborasi
-          </a>
+            Jelajahi Produk
+          </router-link>
 
           <!-- Mobile Menu Button -->
           <button 
@@ -84,15 +132,25 @@
         <router-link @click="mobileMenuOpen = false" to="/layanan" class="py-2 text-on-surface hover:text-primary">Layanan</router-link>
         <router-link @click="mobileMenuOpen = false" to="/produk" class="py-2 text-on-surface hover:text-primary">Produk Digital</router-link>
         <router-link @click="mobileMenuOpen = false" to="/portofolio" class="py-2 text-on-surface hover:text-primary">Portofolio</router-link>
-        <router-link @click="mobileMenuOpen = false" to="/login" class="py-2 text-on-surface hover:text-primary flex items-center gap-2">
-          <span class="material-symbols-outlined text-[18px]">lock</span> Masuk ke Akun
-        </router-link>
-        <router-link @click="mobileMenuOpen = false" to="/register" class="py-2 text-[#4edea3] hover:underline flex items-center gap-2">
-          <span class="material-symbols-outlined text-[18px]">person_add</span> Daftar Akun Baru
-        </router-link>
-        <router-link @click="mobileMenuOpen = false" to="/admin" class="py-2 text-secondary font-semibold flex items-center gap-2">
-          <span class="material-symbols-outlined text-[18px]">dashboard</span> Portal Dashboard Admin
-        </router-link>
+        <template v-if="!isAuthenticated">
+          <router-link @click="mobileMenuOpen = false" to="/login" class="py-2 text-on-surface hover:text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">lock</span> Masuk ke Akun
+          </router-link>
+          <router-link @click="mobileMenuOpen = false" to="/register" class="py-2 text-[#4edea3] hover:underline flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">person_add</span> Daftar Akun Baru
+          </router-link>
+        </template>
+        <template v-else>
+          <router-link @click="mobileMenuOpen = false" to="/akun" class="py-2 text-primary font-semibold flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">folder_zip</span> Library &amp; Akun Saya
+          </router-link>
+          <router-link v-if="isAdmin" @click="mobileMenuOpen = false" to="/admin" class="py-2 text-secondary font-semibold flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">dashboard</span> Portal Dashboard Admin
+          </router-link>
+          <button @click="handleLogout" type="button" class="py-2 text-left text-error font-semibold flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">logout</span> Keluar ({{ user?.name }})
+          </button>
+        </template>
       </div>
     </header>
 
@@ -132,9 +190,9 @@
             <h4 class="font-label-lg text-label-lg text-primary tracking-wide">Portal Akses</h4>
             <ul class="space-y-space-xs">
               <li><router-link to="/portofolio" class="font-body-md text-body-md text-on-surface hover:text-primary transition-colors">Portofolio Klien</router-link></li>
-              <li><router-link to="/admin" class="font-body-md text-body-md text-secondary hover:underline transition-colors flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span> Dashboard Overview</router-link></li>
-              <li><router-link to="/admin/pesanan" class="font-body-md text-body-md text-on-surface hover:text-primary transition-colors">Manajemen Proyek</router-link></li>
-              <li><router-link to="/admin/transaksi" class="font-body-md text-body-md text-on-surface hover:text-primary transition-colors">Laporan Finansial</router-link></li>
+              <li v-if="!isAuthenticated"><router-link to="/login" class="font-body-md text-body-md text-on-surface hover:text-primary transition-colors">Masuk ke Akun</router-link></li>
+              <li v-if="!isAuthenticated"><router-link to="/register" class="font-body-md text-body-md text-secondary hover:underline transition-colors">Daftar Anggota Baru</router-link></li>
+              <li v-if="isAdmin"><router-link to="/admin" class="font-body-md text-body-md text-secondary hover:underline transition-colors flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span> Dashboard Admin</router-link></li>
             </ul>
           </div>
 
@@ -168,16 +226,33 @@
         </div>
       </div>
     </footer>
+
+    <!-- Slide-Over Shopping Cart Drawer -->
+    <CartDrawer />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import BrandLogo from '@/components/BrandLogo.vue';
+import CartDrawer from '@/components/CartDrawer.vue';
+import { useAuth } from '@/stores/auth';
+import { useCart } from '@/stores/cart';
+
+const router = useRouter();
+const { user, isAuthenticated, isAdmin, logout } = useAuth();
+const { count: cartCount, openCartDrawer } = useCart();
 
 const mobileMenuOpen = ref(false);
 const newsletterEmail = ref('');
 const subscribed = ref(false);
+
+function handleLogout() {
+  logout();
+  mobileMenuOpen.value = false;
+  router.push('/');
+}
 
 function subscribeNewsletter() {
   if (newsletterEmail.value) {

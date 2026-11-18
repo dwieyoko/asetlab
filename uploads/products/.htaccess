@@ -1,0 +1,20 @@
+# ========================================================
+# AsetLab Public Uploads (Cover Gambar Produk)
+# Izinkan hanya file gambar, blokir eksekusi PHP / script berbahaya.
+# ========================================================
+
+Options -Indexes
+
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|php8|phps|phar|cgi|pl|py|sh|exe|htaccess)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>

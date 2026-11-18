@@ -223,6 +223,11 @@
 </div>
 <!-- Input Fields Form -->
 <form @submit.prevent="handleRegister" class="flex flex-col gap-space-md">
+<!-- Error Banner -->
+<div v-if="errorMessage" class="p-3.5 rounded-xl bg-red-500/10 border border-red-500/40 text-red-300 text-xs flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[18px] text-red-400 shrink-0">error</span>
+<span>{{ errorMessage }}</span>
+</div>
 <!-- Nama Lengkap -->
 <div class="flex flex-col gap-1.5">
 <label class="flex items-center justify-between text-xs font-semibold text-slate-200" for="fullName">
@@ -231,7 +236,7 @@
 </label>
 <div class="relative flex items-center">
 <span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none">person</span>
-<input class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="fullName" placeholder="Arya Danuarta" required="" type="text" value="Arya Danuarta">
+<input v-model="form.name" class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="fullName" placeholder="Nama lengkap Anda" required type="text">
 </div>
 </div>
 <!-- Alamat Email -->
@@ -242,7 +247,7 @@
 </label>
 <div class="relative flex items-center">
 <span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none">mail</span>
-<input class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="emailInput" placeholder="arya@cyberdeck.id" required="" type="email" value="arya@cyberdeck.id">
+<input v-model="form.email" class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="emailInput" placeholder="nama@email.com" required type="email">
 </div>
 </div>
 <!-- WhatsApp Number -->
@@ -258,7 +263,7 @@
 </div>
 <div class="relative flex items-center w-full">
 <span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none">chat</span>
-<input class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="whatsappInput" placeholder="812-9841-0291" required="" type="tel" value="812-9841-0291">
+<input v-model="form.whatsapp" class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="whatsappInput" placeholder="81234567890" required type="tel">
 </div>
 </div>
 </div>
@@ -300,20 +305,20 @@
                 </span>
 </label>
 <!-- Main Submit CTA Button -->
-<button class="relative overflow-hidden group w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#00f2fe] via-[#22c55e] to-[#10b981] text-[#060910] font-headline font-bold text-sm sm:text-base shadow-[0_4px_25px_rgba(0,242,254,0.35)] hover:shadow-[0_8px_32px_rgba(16,185,129,0.5)] transition-all transform active:scale-[0.99] flex items-center justify-center gap-2 mt-2" id="submitBtn" type="submit">
+<button :disabled="isSubmitting" class="relative overflow-hidden group w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#00f2fe] via-[#22c55e] to-[#10b981] text-[#060910] font-headline font-bold text-sm sm:text-base shadow-[0_4px_25px_rgba(0,242,254,0.35)] hover:shadow-[0_8px_32px_rgba(16,185,129,0.5)] transition-all transform active:scale-[0.99] flex items-center justify-center gap-2 mt-2 disabled:opacity-60 disabled:cursor-not-allowed" id="submitBtn" type="submit">
 <span class="relative z-10 flex items-center gap-2 font-bold tracking-tight">
-                  Buat Akun Sekarang &amp; Klaim Bonus Launching
-                  <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  {{ isSubmitting ? 'Mendaftarkan Akun...' : 'Buat Akun Sekarang & Klaim Bonus Launching' }}
+                  <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">{{ isSubmitting ? 'progress_activity' : 'arrow_forward' }}</span>
 </span>
 <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
 </button>
 </form>
 <!-- Success Notice -->
-<div class="hidden mt-4 p-3.5 rounded-xl bg-[#10b981]/15 border border-[#10b981]/40 text-[#10b981] flex items-start gap-2.5" id="successNotice">
+<div v-if="isRegistered" class="mt-4 p-3.5 rounded-xl bg-[#10b981]/15 border border-[#10b981]/40 text-[#10b981] flex items-start gap-2.5" id="successNotice">
 <span class="material-symbols-outlined text-[20px] text-[#10b981] shrink-0">check_circle</span>
 <div class="flex flex-col">
-<span class="text-xs font-bold text-white">Pendaftaran Berhasil Diinisiasi!</span>
-<span class="text-xs text-slate-300">Tautan verifikasi instan dan bonus starter pack telah dikirim ke WhatsApp &amp; Email Anda.</span>
+<span class="text-xs font-bold text-white">Pendaftaran Berhasil!</span>
+<span class="text-xs text-slate-300">Akun Anda telah aktif. Mengarahkan ke katalog produk digital...</span>
 </div>
 </div>
 <!-- Bottom Switch to Login -->
@@ -390,8 +395,10 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import BrandLogo from '@/components/BrandLogo.vue';
+import { useAuth } from '@/stores/auth';
 
 const router = useRouter();
+const { register } = useAuth();
 
 const form = ref({
   name: '',
@@ -404,6 +411,7 @@ const form = ref({
 const showPassword = ref(false);
 const isSubmitting = ref(false);
 const isRegistered = ref(false);
+const errorMessage = ref('');
 
 const strengthInfo = computed(() => {
   const val = form.value.password;
@@ -414,11 +422,11 @@ const strengthInfo = computed(() => {
       label: 'Kekuatan Sandi: Belum diisi',
       textClass: 'text-xs text-slate-400 font-normal'
     };
-  } else if (val.length < 6) {
+  } else if (val.length < 8) {
     return {
       width: '25%',
       barClass: 'h-full bg-red-500 transition-all duration-300 shadow-[0_0_8px_#ef4444]',
-      label: 'Kekuatan Sandi: Lemah (< 6 karakter)',
+      label: 'Kekuatan Sandi: Lemah (min. 8 karakter)',
       textClass: 'text-xs text-red-400 font-semibold'
     };
   } else if (val.length < 10) {
@@ -438,20 +446,36 @@ const strengthInfo = computed(() => {
   }
 });
 
-function handleRegister() {
+async function handleRegister() {
+  errorMessage.value = '';
+
   if (!form.value.agreeTerms) {
-    alert('Harap menyetujui Ketentuan Layanan & Kebijakan Privasi.');
+    errorMessage.value = 'Harap menyetujui Ketentuan Layanan & Kebijakan Privasi.';
+    return;
+  }
+
+  if (form.value.password.length < 8) {
+    errorMessage.value = 'Kata sandi minimal 8 karakter.';
     return;
   }
 
   isSubmitting.value = true;
-  setTimeout(() => {
-    isSubmitting.value = false;
+  try {
+    const cleanWa = form.value.whatsapp.replace(/[^0-9]/g, '').replace(/^0/, '');
+    await register({
+      name: form.value.name.trim(),
+      email: form.value.email.trim(),
+      whatsapp: cleanWa ? `62${cleanWa}` : '',
+      password: form.value.password,
+    });
     isRegistered.value = true;
-    alert(`Registrasi Berhasil! Selamat datang di asetlab.id, ${form.value.name}! Silakan masuk ke akun Anda.`);
     setTimeout(() => {
-      router.push('/login');
-    }, 1200);
-  }, 800);
+      router.push('/akun');
+    }, 900);
+  } catch (err) {
+    errorMessage.value = err?.message || 'Pendaftaran gagal. Silakan coba lagi.';
+  } finally {
+    isSubmitting.value = false;
+  }
 }
 </script>

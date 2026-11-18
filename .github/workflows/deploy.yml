@@ -25,10 +25,13 @@ jobs:
       - name: 🔨 Build Production Bundle
         run: npm run build
 
-      - name: 📂 Copy API and .htaccess to Dist
+      - name: 📂 Copy API, .htaccess & Storage Protections to Dist
         run: |
-          mkdir -p dist/api
-          cp -r api/* dist/api/ || true
+          mkdir -p dist/api dist/storage/private/products dist/uploads/products
+          cp -r api/. dist/api/
+          rm -f dist/api/secrets.php dist/api/.env
+          cp storage/private/products/.htaccess dist/storage/private/products/.htaccess
+          cp uploads/products/.htaccess dist/uploads/products/.htaccess
 
       - name: 🚀 Deploy to DomaiNesia via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -41,3 +44,13 @@ jobs:
           local-dir: ./dist/
           server-dir: /
           dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            api/secrets.php
+            api/.env
+            storage/private/products/**
+            !storage/private/products/.htaccess
+            uploads/products/**
+            !uploads/products/.htaccess

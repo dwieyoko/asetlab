@@ -1,0 +1,16 @@
+# ========================================================
+# AsetLab Private Digital Product Storage
+# File di folder ini TIDAK BOLEH bisa diakses langsung dari URL.
+# Unduhan hanya dilayani via api/download.php setelah verifikasi lisensi.
+# ========================================================
+
+Options -Indexes
+
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>

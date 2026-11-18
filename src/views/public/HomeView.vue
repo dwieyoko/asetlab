@@ -33,13 +33,13 @@
           </p>
 <!-- Action Buttons -->
 <div class="flex flex-wrap items-center gap-space-md mt-space-xl">
-<a class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-gradient-to-r from-primary-container via-surface-tint to-secondary text-on-primary font-label-lg text-label-lg font-bold shadow-[0_4px_25px_rgba(0,242,254,0.38)] hover:shadow-[0_6px_32px_rgba(0,242,254,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300" href="/layanan">
-              Eksplorasi Layanan
+<router-link class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-gradient-to-r from-primary-container via-surface-tint to-secondary text-on-primary font-label-lg text-label-lg font-bold shadow-[0_4px_25px_rgba(0,242,254,0.38)] hover:shadow-[0_6px_32px_rgba(0,242,254,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300" to="/produk">
+              Jelajahi Produk Digital
               <span class="material-symbols-outlined text-[18px] ml-1.5">arrow_forward</span>
-</a>
-<a class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-surface-container-high/60 hover:bg-surface-container-highest text-tertiary font-label-lg text-label-lg font-semibold shadow-sm transition-all duration-200" @click.prevent="openConsultModal">
+</router-link>
+<button type="button" class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-surface-container-high/60 hover:bg-surface-container-highest text-tertiary font-label-lg text-label-lg font-semibold shadow-sm transition-all duration-200 cursor-pointer" @click="openConsultModal">
               Konsultasi Gratis
-            </a>
+            </button>
 </div>
 <!-- Trust Badges Under Buttons -->
 <div class="flex items-center gap-space-lg mt-space-xl pt-space-md">
@@ -272,11 +272,11 @@
 </div>
 </div>
 <div class="flex items-center gap-space-md mt-space-lg">
-<a class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-secondary text-on-secondary font-label-md text-label-md font-bold shadow-[0_4px_20px_rgba(78,222,163,0.3)] hover:brightness-110 transition-all" href="#">
+<router-link class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-secondary text-on-secondary font-label-md text-label-md font-bold shadow-[0_4px_20px_rgba(78,222,163,0.3)] hover:brightness-110 transition-all" to="/produk/fintech-crypto-saas-dashboard-ui-kit">
                 Dapatkan Toolkit Ini
                 <span class="material-symbols-outlined text-[16px] ml-1">download</span>
-</a>
-<span class="font-label-md text-label-md text-on-surface-variant">Rp 349.000 <span class="line-through text-outline text-xs">Rp 890.000</span></span>
+</router-link>
+<span class="font-label-md text-label-md text-on-surface-variant">Rp 349.000 <span class="line-through text-outline text-xs">Rp 520.000</span></span>
 </div>
 </div>
 <div class="lg:col-span-6 relative flex justify-center">
@@ -376,13 +376,13 @@
             Diskusikan kebutuhan website, aset digital, atau media sosial Anda bersama lead architect kami sekarang. Gratis sesi konsultasi 30 menit.
           </p>
 <div class="flex flex-wrap items-center justify-center gap-space-md mt-space-lg">
-<a class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-gradient-to-r from-primary-container to-secondary text-on-primary font-label-lg text-label-lg font-bold shadow-[0_4px_25px_rgba(0,242,254,0.4)] hover:brightness-110 transition-all" href="mailto:halo@asetlab.id">
+<button type="button" @click="openConsultModal" class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-gradient-to-r from-primary-container to-secondary text-on-primary font-label-lg text-label-lg font-bold shadow-[0_4px_25px_rgba(0,242,254,0.4)] hover:brightness-110 transition-all">
               Jadwalkan Konsultasi Gratis
               <span class="material-symbols-outlined text-[18px] ml-2">calendar_month</span>
-</a>
-<a class="inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-surface-container-highest text-primary font-label-lg text-label-lg font-medium hover:bg-surface-bright transition-all" href="/layanan">
+</button>
+<router-link class="inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-surface-container-highest text-primary font-label-lg text-label-lg font-medium hover:bg-surface-bright transition-all" to="/layanan">
               Lihat Detail Paket
-            </a>
+            </router-link>
 </div>
 </div>
 </div>
@@ -407,13 +407,22 @@
         </div>
 
         <form @submit.prevent="submitConsultation" class="space-y-4">
+          <div v-if="consultFeedback.message" class="p-3 rounded-xl text-xs font-semibold border" :class="consultFeedback.type === 'error' ? 'bg-error-container/30 border-error/40 text-error' : 'bg-secondary/15 border-secondary/35 text-secondary'">
+            {{ consultFeedback.message }}
+          </div>
           <div>
             <label class="block text-xs font-semibold text-on-surface-variant mb-1">Nama Lengkap</label>
             <input v-model="form.name" required type="text" placeholder="e.g. Raditya Pratama" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container" />
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-on-surface-variant mb-1">Email Perusahaan / Bisnis</label>
-            <input v-model="form.email" required type="email" placeholder="nama@perusahaan.com" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-on-surface-variant mb-1">Email Perusahaan / Bisnis</label>
+              <input v-model="form.email" required type="email" placeholder="nama@perusahaan.com" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-on-surface-variant mb-1">Nomor WhatsApp</label>
+              <input v-model="form.whatsapp" type="tel" placeholder="081234567890" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container" />
+            </div>
           </div>
           <div>
             <label class="block text-xs font-semibold text-on-surface-variant mb-1">Kategori Kebutuhan Proyek</label>
@@ -431,7 +440,9 @@
 
           <div class="pt-2 flex justify-end gap-3">
             <button @click="showModal = false" type="button" class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:bg-surface-container">Batal</button>
-            <button type="submit" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary-container to-secondary text-on-primary font-bold text-sm hover:brightness-110 shadow-lg">Kirim Pengajuan</button>
+            <button :disabled="isSubmittingConsult" type="submit" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary-container to-secondary text-on-primary font-bold text-sm hover:brightness-110 shadow-lg disabled:opacity-60">
+              {{ isSubmittingConsult ? 'Mengirim...' : 'Kirim Pengajuan' }}
+            </button>
           </div>
         </form>
       </div>
@@ -442,22 +453,45 @@
 
 <script setup>
 import { ref } from 'vue';
+import { ConsultationsApi } from '@/services/api';
 
 const showModal = ref(false);
+const isSubmittingConsult = ref(false);
+const consultFeedback = ref({ message: '', type: 'success' });
+
 const form = ref({
   name: '',
   email: '',
+  whatsapp: '',
   service: 'Web & SaaS Platform',
   notes: ''
 });
 
 function openConsultModal() {
+  consultFeedback.value = { message: '', type: 'success' };
   showModal.value = true;
 }
 
-function submitConsultation() {
-  alert(`Terima kasih ${form.value.name}! Pengajuan konsultasi Anda untuk ${form.value.service} telah diterima. Lead architect kami akan menghubungi ${form.value.email} dalam 1x24 jam.`);
-  showModal.value = false;
-  form.value = { name: '', email: '', service: 'Web & SaaS Platform', notes: '' };
+async function submitConsultation() {
+  consultFeedback.value = { message: '', type: 'success' };
+  isSubmittingConsult.value = true;
+  try {
+    const res = await ConsultationsApi.submit(form.value);
+    consultFeedback.value = {
+      message: res?.message || `Terima kasih ${form.value.name}! Tim kami akan menghubungi ${form.value.email} dalam 1x24 jam.`,
+      type: 'success',
+    };
+    form.value = { name: '', email: '', whatsapp: '', service: 'Web & SaaS Platform', notes: '' };
+    setTimeout(() => {
+      showModal.value = false;
+    }, 1800);
+  } catch (err) {
+    consultFeedback.value = {
+      message: err?.message || 'Gagal mengirim pengajuan. Silakan coba kembali.',
+      type: 'error',
+    };
+  } finally {
+    isSubmittingConsult.value = false;
+  }
 }
 </script>

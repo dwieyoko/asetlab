@@ -1,89 +1,61 @@
-# ⚡ AsetLab Platform (asetlab.id)
+# ⚡ AsetLab Platform v2.0 (asetlab.web.id / asetlab.id)
 
-> **Laboratorium Solusi Digital & Platform Akselerasi Bisnis**  
-> Sistem inventori produk digital siap pakai (UI Kit Figma, Source Code, Notion OS, 3D Icon Pack) dan dashboard monitoring manajemen pesanan / proyek kreatif kustom dengan estetika *Obsidian Cyberpulse*.
+> **Platform Penjualan Produk Digital & Studio Solusi Web**  
+> E-Commerce produk digital siap produksi (UI Kit Figma, Source Code, Notion OS, 3D Icon Pack) dengan **Guest Checkout**, **Payment Gateway (Midtrans Snap / Tripay / Simulator)**, **Private File Storage DomaiNesia**, **Lisensi Unik Otomatis**, **Customer Library (`/akun`)**, dan **Admin Console** berestetika *Obsidian Cyberpulse*.
 
 ---
 
-## 🛠️ Arsitektur Teknologi
+## 🛠️ Arsitektur & Fitur Utama
 
-* **Frontend**: Vue 3 (Composition API `<script setup>`), Vite 5, Tailwind CSS, Vue Router (HTML5 History Mode)
-* **Design System**: Obsidian Cyberpulse (Dark Cybernetic, Luminescent Cyan `#00F2FE`, Emerald `#10B981`, Deep Obsidian `#07090E`)
-* **Typography**: Plus Jakarta Sans (Headings & Display), Inter (Body & Tabular Data)
-* **Backend API**: PHP 8+ PDO REST API (Natif & optimal untuk cPanel DomaiNesia)
-* **Database**: MySQL / MariaDB (Schema di `database/schema.sql`)
-* **Hosting**: DomaiNesia (cPanel Shared / Cloud Hosting / VPS)
-* **Version Control**: GitHub (`https://github.com/dwieyoko/asetlab.git`)
+* **Frontend**: Vue 3 (`<script setup>`), Vite, Tailwind CSS 3, Vue Router 4 + RBAC Navigation Guards.
+* **Backend**: Native PHP 8+ PDO REST API (`api/`) — tanpa dependensi Composer, langsung siap jalan di cPanel DomaiNesia.
+* **Autentikasi & Keamanan**: Pure PHP HS256 JWT (`api/helpers/auth_middleware.php`), pemisahan role `admin` vs `client`, kredensial dipisah di `api/secrets.php` (di-ignore Git & diblokir `.htaccess`).
+* **Private Digital Storage**: File produk diunggah oleh Admin ke `storage/private/products/` (diblokir total oleh `.htaccess`) dan dilayani secara *chunked streaming* lewat `api/download.php` setelah verifikasi `license_key` & status `paid`.
+* **Alur Transaksi Digital**:
+  * Katalog Produk (`/produk`) -> Detail Produk (`/produk/:slug`) -> Keranjang Drawer -> Checkout Guest / Member (`/checkout`) + Kode Kupon (`LAUNCH20`, `HEMAT50K`).
+  * Pembayaran via **Midtrans Snap**, **Tripay**, atau **Mode Simulator** -> Webhook verifikasi signature (`api/webhook_payment.php`) -> Auto-generate License Key -> Email otomatis (`MailService`) -> Halaman Invoice (`/transaksi/:invoice`) & Library Pembeli (`/akun`).
 
 ---
 
 ## 🚀 Menjalankan Secara Lokal (Development)
 
 ```bash
-# 1. Clone repository
-git clone https://github.com/dwieyoko/asetlab.git
-cd asetlab
-
-# 2. Install dependencies
 npm install
-
-# 3. Jalankan Vite Development Server
 npm run dev
 ```
 
-Akses aplikasi di browser: `http://localhost:5173/`
-
 ---
 
-## 🌐 Panduan Deployment & Database di DomaiNesia
+## 🌐 Panduan Setup & Go-Live di DomaiNesia cPanel
 
-### Langkah 1: Buat Database MySQL di cPanel DomaiNesia
-1. Login ke **cPanel DomaiNesia**.
-2. Masuk ke menu **MySQL® Databases**.
-3. Buat database baru, contoh: `u1234567_asetlab`.
-4. Buat user database baru, contoh: `u1234567_dbuser` dan set kata sandi yang kuat.
-5. Pada bagian **Add User to Database**, hubungkan user ke database dan centang **ALL PRIVILEGES**.
+### 1. Database MySQL
+* **Database Baru**: Import `database/schema.sql` melalui **phpMyAdmin**.
+* **Database Lama (Upgrade v1 → v2 tanpa hapus data)**: Import `database/migration_v2_digital_commerce.sql` melalui **phpMyAdmin**.
 
-### Langkah 2: Import Tabel & Data Awal via phpMyAdmin
-1. Di cPanel DomaiNesia, buka **phpMyAdmin**.
-2. Pilih database `u1234567_asetlab` yang baru dibuat.
-3. Klik tab **Import**.
-4. Upload file `database/schema.sql` yang ada di repository ini, lalu klik **Go / Kirim**.
-5. Semua tabel (`products`, `orders`, `transactions`, `users`) beserta data awal langsung siap pakai!
+### 2. Konfigurasi Privat (`api/secrets.php`)
+1. Di File Manager cPanel (`public_html/api/`), salin `api/secrets.example.php` menjadi **`api/secrets.php`**.
+2. Isi:
+   * `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS` (gunakan password MySQL baru yang kuat).
+   * `JWT_SECRET` (string acak minimal 64 karakter).
+   * `PAYMENT_GATEWAY`: pilih `'simulator'` (untuk tes awal), `'midtrans'`, atau `'tripay'`, lalu isi API key sesuai gateway pilihan Anda.
+   * `SMTP_*`: aktifkan `SMTP_ENABLED => true` dengan akun email cPanel (`mail.asetlab.web.id:465`) agar pembeli otomatis menerima email invoice & link download.
 
-### Langkah 3: Konfigurasi Kredensial Database
-Buka file `api/config.php` dan sesuaikan kredensial database Anda:
-```php
-$DB_HOST = 'localhost';
-$DB_NAME = 'u1234567_asetlab'; // Nama database DomaiNesia Anda
-$DB_USER = 'u1234567_dbuser';  // User database DomaiNesia Anda
-$DB_PASS = 'PasswordDatabaseAnda';
-```
+### 3. Daftarkan URL Webhook di Payment Gateway
+* **Midtrans Dashboard → Settings → Configuration → Payment Notification URL**:
+  ```
+  https://asetlab.web.id/api/webhook_payment.php?gateway=midtrans
+  ```
+* **Tripay Dashboard → Merchant → Callback URL**:
+  ```
+  https://asetlab.web.id/api/webhook_payment.php?gateway=tripay
+  ```
 
-### Langkah 4: Build & Upload ke DomaiNesia
-1. Jalankan build frontend:
-   ```bash
-   npm run build
-   ```
-2. Salin isi folder `dist/` ke direktori `public_html/` di File Manager cPanel DomaiNesia.
-3. Salin juga folder `api/` ke dalam `public_html/api/`.
-4. File `public/.htaccess` yang sudah kami sediakan akan otomatis mengatur routing SPA (*Single Page Application*) sehingga tidak akan terjadi error 404 saat pengguna me-refresh halaman seperti `/admin/produk` atau `/layanan`.
-
----
-
-## 🤖 Otomasi Deploy via GitHub Actions (Opsional)
-Repository ini telah dilengkapi workflow CI/CD di `.github/workflows/deploy.yml`. Untuk mengaktifkan deploy otomatis saat push ke branch `main`:
-1. Buka repository Anda di GitHub: `https://github.com/dwieyoko/asetlab`
-2. Masuk ke menu **Settings > Secrets and variables > Actions > New repository secret**.
-3. Tambahkan 3 secret berikut:
-   * `DOMAINESIA_FTP_SERVER`: Host FTP DomaiNesia (misal `ftp.namadomain.com` atau IP server)
-   * `DOMAINESIA_FTP_USERNAME`: Akun FTP cPanel Anda
-   * `DOMAINESIA_FTP_PASSWORD`: Password FTP cPanel Anda
-4. Setiap Anda melakukan `git push origin main`, GitHub Actions akan otomatis meng-compile dan meng-upload file ke DomaiNesia.
-
----
-
-## 🔐 Akun Default Admin
-* **URL Admin**: `/admin` atau `/login`
+### 4. Akun Default Admin & Keamanan Awal
+* **URL Login**: `/login` → otomatis diarahkan ke `/admin`
 * **Email**: `admin@asetlab.id`
-* **Password**: `admin123`
+* **Password awal**: `admin123` *(segera ganti di menu `/akun` → tab Keamanan Akun setelah login pertama!)*
+
+### 5. Checklist Upload Produk Pertama
+1. Masuk ke `/admin/produk` sebagai Admin.
+2. Klik **Edit** pada setiap produk → unggah **Cover Gambar** dan **File Produk Digital (`.zip`/`.fig`/`.pdf`)** ke folder privat.
+3. Uji 1 transaksi penuh menggunakan mode `simulator` (atau Sandbox Midtrans/Tripay), lalu pastikan file berhasil diunduh di halaman Invoice & Library `/akun`.

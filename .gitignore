@@ -12,6 +12,26 @@ dist
 dist-ssr
 *.local
 
+# Environment & Secrets (NEVER commit credentials!)
+.env
+.env.*
+!.env.example
+api/secrets.php
+api/.env
+
+# Uploaded & Private Digital Asset Files
+storage/private/*
+!storage/private/products/
+storage/private/products/*
+!storage/private/products/.htaccess
+!storage/private/products/.gitkeep
+
+uploads/*
+!uploads/products/
+uploads/products/*
+!uploads/products/.htaccess
+!uploads/products/.gitkeep
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
