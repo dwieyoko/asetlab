@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      FTP_PASSWORD: ${{ secrets.DOMAINESIA_FTP_PASSWORD }}
 
     steps:
       - name: ⬇️ Checkout Repository
@@ -16,7 +19,7 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: 📦 Install Dependencies
@@ -35,7 +38,7 @@ jobs:
 
       - name: 🚀 Deploy to DomaiNesia via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        if: ${{ secrets.DOMAINESIA_FTP_PASSWORD != '' }}
+        if: env.FTP_PASSWORD != ''
         with:
           server: ${{ secrets.DOMAINESIA_FTP_SERVER || '103.147.154.179' }}
           username: ${{ secrets.DOMAINESIA_FTP_USERNAME || 'asetlab_id@asetlab.web.id' }}
