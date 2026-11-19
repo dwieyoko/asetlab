@@ -129,25 +129,25 @@
         <form @submit.prevent="submitInquiry" class="space-y-4">
           <div>
             <label class="block text-xs font-semibold text-on-surface-variant mb-1">Nama Lengkap *</label>
-            <input v-model="inquiryForm.name" required type="text" placeholder="Nama Anda / Perusahaan" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container" />
+            <input v-model="inquiryForm.name" required type="text" placeholder="Nama Anda / Perusahaan" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" />
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Email *</label>
-              <input v-model="inquiryForm.email" required type="email" placeholder="nama@perusahaan.com" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container" />
+              <input v-model="inquiryForm.email" required type="email" placeholder="nama@perusahaan.com" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">WhatsApp</label>
-              <input v-model="inquiryForm.whatsapp" type="tel" placeholder="081234567890" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container" />
+              <input v-model="inquiryForm.whatsapp" type="tel" placeholder="081234567890" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" />
             </div>
           </div>
           <div>
             <label class="block text-xs font-semibold text-on-surface-variant mb-1">Kebutuhan / Target Proyek</label>
-            <textarea v-model="inquiryForm.notes" rows="3" placeholder="Jelaskan singkat kebutuhan, timeline, atau fitur yang diinginkan..." class="w-full bg-surface-container-low px-4 py-2 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"></textarea>
+            <textarea v-model="inquiryForm.notes" rows="3" placeholder="Jelaskan singkat kebutuhan, timeline, atau fitur yang diinginkan..." class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"></textarea>
           </div>
-          <div class="flex justify-end gap-3 pt-2">
-            <button @click="showInquiryModal = false" type="button" class="px-5 py-2.5 rounded-full text-sm text-outline hover:text-on-surface">Batal</button>
-            <button :disabled="submittingInquiry" type="submit" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary-container to-secondary text-on-primary font-bold text-sm hover:brightness-110 disabled:opacity-60">
+          <div class="flex justify-end gap-2.5 pt-2">
+            <button @click="showInquiryModal = false" type="button" class="px-4 py-2.5 rounded-lg text-sm text-outline hover:text-on-surface hover:bg-surface-container transition-all">Batal</button>
+            <button :disabled="submittingInquiry" type="submit" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-bold text-sm hover:brightness-110 shadow-md shadow-primary-container/20 active:scale-[0.99] transition-all disabled:opacity-60">
               {{ submittingInquiry ? 'Mengirim...' : 'Kirim Permintaan' }}
             </button>
           </div>

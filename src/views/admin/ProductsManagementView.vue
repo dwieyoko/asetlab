@@ -25,7 +25,7 @@
           <button
             @click="triggerSync"
             :disabled="isSyncing"
-            class="px-space-md py-space-sm rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md flex items-center gap-2 transition-all duration-200 disabled:opacity-60"
+            class="px-4 py-2.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md flex items-center gap-2 transition-all duration-200 disabled:opacity-60 border border-outline-variant/30 shadow-sm"
             type="button"
           >
             <span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" :class="{ 'animate-spin': isSyncing }">cloud_sync</span>
@@ -34,7 +34,7 @@
 
           <button
             @click="openAddModal"
-            class="px-space-lg py-space-sm rounded-full bg-gradient-to-r from-primary-container via-secondary-fixed to-secondary text-surface-container-lowest font-headline-sm text-label-lg font-bold shadow-lg shadow-primary-container/20 hover:shadow-primary-container/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center gap-2"
+            class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary-container via-secondary-fixed to-secondary text-surface-container-lowest font-headline-sm text-label-lg font-bold shadow-md shadow-primary-container/20 hover:shadow-primary-container/30 hover:brightness-105 active:scale-[0.98] transition-all duration-200 flex items-center gap-2"
             type="button"
           >
             <span class="material-symbols-outlined font-bold text-[20px]">add_circle</span>
@@ -143,14 +143,14 @@
       </div>
 
       <!-- Filter Tabs & Live Search Bar -->
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-space-md p-space-sm rounded-2xl bg-surface-container-low mb-space-md">
-        <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto scrollbar-none pb-1 sm:pb-0">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-space-md p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 mb-space-md">
+        <div class="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto scrollbar-none pb-1 sm:pb-0">
           <button
             v-for="cat in categories"
             :key="cat"
             @click="activeCategory = cat"
-            class="px-4 py-2 rounded-full font-label-md text-label-md transition-all shrink-0"
-            :class="activeCategory === cat ? 'bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-bold shadow-md shadow-primary-container/20' : 'bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'"
+            class="px-3.5 py-1.5 rounded-lg font-label-md text-xs transition-all shrink-0"
+            :class="activeCategory === cat ? 'bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-bold shadow-sm' : 'bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'"
           >
             {{ cat }}
           </button>
@@ -162,7 +162,7 @@
             v-model="searchQuery"
             type="text"
             placeholder="Cari judul produk atau SKU..."
-            class="w-full bg-surface-container-highest/60 pl-9 pr-4 py-2 rounded-full text-sm text-on-surface placeholder:text-outline border border-outline-variant/30 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container"
+            class="w-full bg-surface-container pl-9 pr-4 py-2 rounded-lg text-xs text-on-surface placeholder:text-outline border border-outline-variant/30 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
           />
           <button
             v-if="searchQuery"
@@ -335,14 +335,14 @@
 
     <!-- ================= MODAL FORM: TAMBAH / EDIT PRODUK DIGITAL ================= -->
     <div v-if="showFormModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-      <div class="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto rounded-3xl bg-surface-container-high border border-outline-variant/40 p-6 md:p-8 shadow-2xl">
-        <button @click="closeFormModal" class="absolute top-5 right-5 text-outline hover:text-on-surface">
+      <div class="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto rounded-2xl bg-surface-container-high border border-outline-variant/30 p-6 md:p-8 shadow-2xl">
+        <button @click="closeFormModal" class="absolute top-5 right-5 text-outline hover:text-on-surface p-1 rounded-lg hover:bg-surface-container transition-colors">
           <span class="material-symbols-outlined">close</span>
         </button>
 
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-11 h-11 rounded-2xl bg-primary-container/20 flex items-center justify-center text-primary-container">
-            <span class="material-symbols-outlined text-[24px]">{{ isEditMode ? 'edit_note' : 'add_box' }}</span>
+          <div class="w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary-container">
+            <span class="material-symbols-outlined text-[22px]">{{ isEditMode ? 'edit_note' : 'add_box' }}</span>
           </div>
           <div>
             <h3 class="font-headline-sm text-headline-sm text-tertiary font-bold">
@@ -355,12 +355,12 @@
         </div>
 
         <!-- Inline Error -->
-        <div v-if="formError" class="mb-4 p-3.5 rounded-xl bg-error-container/30 border border-error/40 text-error text-xs flex items-center gap-2">
+        <div v-if="formError" class="mb-4 p-3 rounded-lg bg-error-container/30 border border-error/40 text-error text-xs flex items-center gap-2">
           <span class="material-symbols-outlined text-[18px]">error</span>
           <span>{{ formError }}</span>
         </div>
 
-        <form @submit.prevent="submitForm" class="space-y-5">
+        <form @submit.prevent="submitForm" class="space-y-4">
           <!-- Title & License -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div class="sm:col-span-2">
@@ -370,7 +370,7 @@
                 required
                 type="text"
                 placeholder="e.g. Modern AI SaaS Dashboard UI Kit"
-                class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+                class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
               />
             </div>
             <div>
@@ -379,7 +379,7 @@
                 v-model="formState.sku"
                 type="text"
                 placeholder="DS-CYBER-2026"
-                class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container font-mono"
+                class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 font-mono transition-all"
               />
             </div>
           </div>
@@ -390,7 +390,7 @@
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Kategori *</label>
               <select
                 v-model="formState.category"
-                class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+                class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
               >
                 <option value="UI Kit">UI Kit</option>
                 <option value="Source Code">Source Code</option>
@@ -405,7 +405,7 @@
                 required
                 type="text"
                 placeholder="v1.0.0"
-                class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+                class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
               />
             </div>
             <div>
@@ -414,7 +414,7 @@
                 v-model="formState.license_type"
                 type="text"
                 placeholder="Commercial Single Project"
-                class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+                class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
               />
             </div>
           </div>
@@ -430,7 +430,7 @@
                 min="0"
                 step="1000"
                 placeholder="299000"
-                class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+                class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
               />
             </div>
             <div>
@@ -441,14 +441,14 @@
                 min="0"
                 step="1000"
                 placeholder="450000"
-                class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+                class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
               />
             </div>
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Status Publikasi</label>
               <select
                 v-model="formState.status"
-                class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+                class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
               >
                 <option value="Live">Live (Tampil di Toko)</option>
                 <option value="Draft">Draft (Arsip Internal)</option>
@@ -459,7 +459,7 @@
           <!-- Upload Zone: Cover Image & Private Digital Product File -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
             <!-- Cover Image Upload -->
-            <div class="p-4 rounded-2xl bg-surface-container-low border border-outline-variant/30 space-y-3">
+            <div class="p-4 rounded-xl bg-surface-container-low/90 border border-outline-variant/30 space-y-3">
               <div class="flex items-center justify-between">
                 <label class="text-xs font-bold text-primary flex items-center gap-1.5">
                   <span class="material-symbols-outlined text-[16px] text-primary-container">image</span>
@@ -468,12 +468,12 @@
                 <span class="text-[10px] text-outline">JPG/PNG/WEBP • Max 5MB</span>
               </div>
 
-              <div v-if="formState.image" class="relative w-full h-28 rounded-xl overflow-hidden bg-surface-container border border-outline-variant/20">
+              <div v-if="formState.image" class="relative w-full h-28 rounded-lg overflow-hidden bg-surface-container border border-outline-variant/20">
                 <img :src="formState.image" alt="Preview Cover" class="w-full h-full object-cover" />
               </div>
 
               <div class="flex items-center gap-2">
-                <label class="flex-1 cursor-pointer inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-surface-container hover:bg-surface-container-highest border border-outline-variant/40 text-xs font-semibold text-primary transition-colors">
+                <label class="flex-1 cursor-pointer inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container hover:bg-surface-container-highest border border-outline-variant/40 text-xs font-semibold text-primary transition-colors">
                   <span class="material-symbols-outlined text-[16px]">upload</span>
                   <span>{{ uploadingImage ? 'Mengunggah...' : 'Upload Gambar' }}</span>
                   <input type="file" accept="image/png,image/jpeg,image/webp,image/gif" class="hidden" :disabled="uploadingImage" @change="handleImageUpload" />
@@ -483,12 +483,12 @@
                 v-model="formState.image"
                 type="text"
                 placeholder="Atau tempel URL gambar /uploads/products/..."
-                class="w-full bg-surface-container px-3 py-1.5 rounded-lg border border-outline-variant/30 text-xs text-on-surface-variant focus:outline-none focus:border-primary-container"
+                class="w-full bg-surface-container px-3 py-2 rounded-lg border border-outline-variant/30 text-xs text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
               />
             </div>
 
             <!-- Private Digital File Upload -->
-            <div class="p-4 rounded-2xl bg-surface-container-low border border-secondary/30 space-y-3">
+            <div class="p-4 rounded-xl bg-surface-container-low/90 border border-secondary/30 space-y-3">
               <div class="flex items-center justify-between">
                 <label class="text-xs font-bold text-secondary flex items-center gap-1.5">
                   <span class="material-symbols-outlined text-[16px]">folder_zip</span>
@@ -499,7 +499,7 @@
 
               <div
                 v-if="formState.file_path"
-                class="p-3 rounded-xl bg-secondary/10 border border-secondary/30 flex items-start gap-2.5"
+                class="p-3 rounded-lg bg-secondary/10 border border-secondary/30 flex items-start gap-2.5"
               >
                 <span class="material-symbols-outlined text-secondary text-[20px] shrink-0">verified_user</span>
                 <div class="min-w-0 flex-1">
@@ -510,12 +510,12 @@
                   </p>
                 </div>
               </div>
-              <div v-else class="p-3 rounded-xl bg-surface-container border border-dashed border-outline-variant/40 text-center">
+              <div v-else class="p-3 rounded-lg bg-surface-container border border-dashed border-outline-variant/40 text-center">
                 <p class="text-xs text-outline">Belum ada file aset yang diunggah.</p>
                 <p class="text-[10px] text-outline mt-0.5">Pembeli akan menerima file ini setelah transaksi lunas.</p>
               </div>
 
-              <label class="w-full cursor-pointer inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-secondary/15 hover:bg-secondary/25 border border-secondary/40 text-xs font-bold text-secondary transition-colors">
+              <label class="w-full cursor-pointer inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-secondary/15 hover:bg-secondary/25 border border-secondary/40 text-xs font-bold text-secondary transition-colors">
                 <span class="material-symbols-outlined text-[17px]">{{ uploadingFile ? 'progress_activity' : 'cloud_upload' }}</span>
                 <span>{{ uploadingFile ? 'Mengunggah ke Storage Privat...' : (formState.file_path ? 'Ganti File Produk Digital' : 'Pilih & Upload File Produk') }}</span>
                 <input
@@ -537,7 +537,7 @@
                 v-model="formState.preview_url"
                 type="url"
                 placeholder="https://demo.asetlab.web.id/fintech-ui"
-                class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+                class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
               />
             </div>
             <div>
@@ -546,7 +546,7 @@
                 v-model="tagsInput"
                 type="text"
                 placeholder="Figma, Tailwind, SaaS, Dark Mode"
-                class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+                class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
               />
             </div>
           </div>
@@ -558,7 +558,7 @@
               v-model="formState.description"
               rows="3"
               placeholder="Jelaskan fitur utama, kompatibilitas software (Figma/Next.js/Tailwind), dan manfaat untuk pembeli..."
-              class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+              class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
             ></textarea>
           </div>
 
@@ -569,18 +569,18 @@
               v-model="highlightsInput"
               rows="3"
               placeholder="240+ Komponen Figma Auto-Layout&#10;Design Token JSON Siap Tailwind CSS&#10;Free Update Versi Minor Selamanya"
-              class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+              class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
             ></textarea>
           </div>
 
-          <div class="pt-4 flex justify-end gap-3 border-t border-outline-variant/30">
-            <button @click="closeFormModal" type="button" class="px-5 py-2.5 rounded-full text-sm text-outline hover:text-on-surface">
+          <div class="pt-4 flex justify-end gap-2.5 border-t border-outline-variant/30">
+            <button @click="closeFormModal" type="button" class="px-4 py-2.5 rounded-lg text-sm font-medium text-outline hover:text-on-surface hover:bg-surface-container transition-all">
               Batal
             </button>
             <button
               type="submit"
               :disabled="isSaving || uploadingImage || uploadingFile"
-              class="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-bold text-sm hover:brightness-110 shadow-lg shadow-primary-container/20 disabled:opacity-60"
+              class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-bold text-sm hover:brightness-110 shadow-md shadow-primary-container/20 active:scale-[0.99] transition-all disabled:opacity-60"
             >
               {{ isSaving ? 'Menyimpan...' : (isEditMode ? 'Simpan Perubahan' : 'Simpan & Rilis Produk') }}
             </button>
@@ -591,19 +591,19 @@
 
     <!-- ================= MODAL KONFIRMASI HAPUS ================= -->
     <div v-if="deletingProduct" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-      <div class="relative w-full max-w-md rounded-3xl bg-surface-container-high border border-outline-variant/40 p-6 md:p-8 shadow-2xl text-center">
-        <div class="w-14 h-14 rounded-full bg-error-container/40 text-error flex items-center justify-center mx-auto mb-4">
-          <span class="material-symbols-outlined text-[32px]">warning</span>
+      <div class="relative w-full max-w-md rounded-2xl bg-surface-container-high border border-outline-variant/30 p-6 md:p-8 shadow-2xl text-center">
+        <div class="w-12 h-12 rounded-xl bg-error-container/40 text-error flex items-center justify-center mx-auto mb-4">
+          <span class="material-symbols-outlined text-[28px]">warning</span>
         </div>
         <h3 class="font-headline-sm text-headline-sm text-tertiary font-bold mb-2">Hapus Produk Ini?</h3>
         <p class="text-sm text-outline mb-6">
           Apakah Anda yakin ingin menghapus produk <strong class="text-on-surface">"{{ deletingProduct.title }}"</strong>? Jika produk pernah dibeli, sebaiknya ubah status ke Draft.
         </p>
         <div class="flex justify-center gap-3">
-          <button @click="deletingProduct = null" class="px-5 py-2.5 rounded-full text-sm text-outline hover:text-on-surface">
+          <button @click="deletingProduct = null" class="px-4 py-2.5 rounded-lg text-sm font-medium text-outline hover:text-on-surface hover:bg-surface-container transition-all">
             Batal
           </button>
-          <button @click="executeDelete" class="px-6 py-2.5 rounded-full bg-error text-white font-bold text-sm hover:brightness-110 shadow-lg">
+          <button @click="executeDelete" class="px-5 py-2.5 rounded-lg bg-error text-white font-bold text-sm hover:brightness-110 shadow-md transition-all">
             Ya, Hapus Produk
           </button>
         </div>

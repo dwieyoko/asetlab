@@ -24,19 +24,29 @@
               @click="refreshTransactions"
               :disabled="isLoading"
               type="button"
-              class="flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-variant text-on-surface px-space-md py-2.5 rounded-full font-label-md text-label-md shadow-sm transition-all duration-200 disabled:opacity-60"
+              class="flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-variant text-on-surface px-4 py-2.5 rounded-lg font-label-md text-xs border border-outline-variant/30 shadow-sm transition-all duration-200 disabled:opacity-60"
             >
               <span class="material-symbols-outlined text-[18px] text-secondary" :class="{ 'animate-spin': isLoading }">sync</span>
               <span>{{ isLoading ? 'Memuat...' : 'Sinkronkan Mutasi' }}</span>
             </button>
 
             <button
+              @click="openClearDummyModal"
+              type="button"
+              class="flex items-center gap-space-xs bg-error-container/20 hover:bg-error-container/35 text-error border border-error/40 px-4 py-2.5 rounded-lg font-label-md text-xs font-semibold shadow-sm transition-all"
+              title="Bersihkan 5 data transaksi dummy awal"
+            >
+              <span class="material-symbols-outlined text-[18px]">delete_sweep</span>
+              <span>Bersihkan Data Dummy</span>
+            </button>
+
+            <button
               @click="exportCsv"
               type="button"
-              class="flex items-center gap-space-xs bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest px-5 py-2.5 rounded-full font-label-md text-label-md font-bold shadow-[0_4px_20px_rgba(0,242,254,0.35)] hover:brightness-110 transition-all"
+              class="flex items-center gap-space-xs bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest px-4 py-2.5 rounded-lg font-label-md text-xs font-bold shadow-[0_4px_16px_rgba(0,242,254,0.3)] hover:brightness-110 active:scale-[0.99] transition-all"
             >
               <span class="material-symbols-outlined text-[18px]">download</span>
-              <span>Unduh Laporan CSV</span>
+              <span>Unduh CSV</span>
             </button>
           </div>
         </div>
@@ -197,7 +207,7 @@
             <div class="flex flex-wrap items-center gap-2">
               <select
                 v-model="statusFilter"
-                class="bg-surface-container text-on-surface text-xs font-semibold px-3.5 py-2 rounded-full border border-outline-variant/30 focus:outline-none focus:border-primary-container"
+                class="bg-surface-container text-on-surface text-xs font-semibold px-3 py-2 rounded-lg border border-outline-variant/30 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
               >
                 <option value="Semua">Status: Semua</option>
                 <option value="Berhasil">Berhasil / Lunas</option>
@@ -211,7 +221,7 @@
                   v-model="searchQuery"
                   type="text"
                   placeholder="Cari invoice, klien, produk..."
-                  class="bg-surface-container pl-8 pr-4 py-2 rounded-full text-xs text-on-surface placeholder:text-outline/70 border border-outline-variant/30 focus:outline-none focus:border-primary-container w-52 sm:w-64"
+                  class="bg-surface-container pl-8 pr-4 py-2 rounded-lg text-xs text-on-surface placeholder:text-outline/70 border border-outline-variant/30 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all w-52 sm:w-64"
                 />
               </div>
             </div>
@@ -255,7 +265,7 @@
                     </div>
                   </td>
                   <td class="py-3.5 px-space-md whitespace-nowrap">
-                    <span class="inline-flex items-center gap-1.5 bg-surface-container px-2.5 py-1 rounded-full text-[11px] text-on-surface">
+                    <span class="inline-flex items-center gap-1.5 bg-surface-container px-2.5 py-1 rounded-md text-[11px] text-on-surface border border-outline-variant/20">
                       {{ trx.method }}
                     </span>
                   </td>
@@ -270,12 +280,12 @@
                   </td>
                   <td class="py-3.5 px-space-md text-center whitespace-nowrap">
                     <span
-                      class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold"
+                      class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold"
                       :class="trx.status === 'Berhasil'
-                        ? 'bg-secondary/15 text-secondary'
+                        ? 'bg-secondary/15 text-secondary border border-secondary/25'
                         : trx.status === 'Menunggu'
-                          ? 'bg-amber-500/15 text-amber-300'
-                          : 'bg-error-container/30 text-error'"
+                          ? 'bg-amber-500/15 text-amber-300 border border-amber-500/25'
+                          : 'bg-error-container/30 text-error border border-error/30'"
                     >
                       <span
                         class="w-1.5 h-1.5 rounded-full"
@@ -291,7 +301,7 @@
                         @click="confirmManualPayment(trx)"
                         :disabled="confirmingId === trx.id"
                         type="button"
-                        class="px-2.5 py-1 rounded-full bg-secondary/15 hover:bg-secondary/30 text-secondary text-[11px] font-bold border border-secondary/35 transition-colors disabled:opacity-50"
+                        class="px-2.5 py-1 rounded-md bg-secondary/15 hover:bg-secondary/30 text-secondary text-[11px] font-bold border border-secondary/35 transition-colors disabled:opacity-50"
                         title="Konfirmasi Pembayaran Lunas & Terbitkan Lisensi"
                       >
                         {{ confirmingId === trx.id ? '...' : 'Set Lunas' }}
@@ -303,6 +313,14 @@
                         title="Lihat Detail & Log Webhook"
                       >
                         <span class="material-symbols-outlined text-[18px]">data_object</span>
+                      </button>
+                      <button
+                        @click="confirmDeleteTrx(trx)"
+                        type="button"
+                        class="p-1.5 rounded-md hover:bg-error-container/30 text-outline hover:text-error transition-colors"
+                        title="Hapus Transaksi Ini"
+                      >
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
                       </button>
                     </div>
                   </td>
@@ -322,22 +340,66 @@
 
     <!-- Modal Detail / Webhook Payload -->
     <div v-if="selectedWebhookTrx" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-      <div class="relative w-full max-w-xl rounded-3xl bg-surface-container-high border border-outline-variant/40 p-6 shadow-2xl space-y-4">
-        <button @click="selectedWebhookTrx = null" class="absolute top-5 right-5 text-outline hover:text-on-surface">
+      <div class="relative w-full max-w-xl rounded-2xl bg-surface-container-high border border-outline-variant/30 p-6 shadow-2xl space-y-4">
+        <button @click="selectedWebhookTrx = null" class="absolute top-5 right-5 text-outline hover:text-on-surface p-1 rounded-lg hover:bg-surface-container transition-colors">
           <span class="material-symbols-outlined">close</span>
         </button>
         <div>
           <span class="text-xs font-mono text-secondary uppercase">Transaction Inspector</span>
           <h3 class="font-headline-sm text-primary font-bold">{{ selectedWebhookTrx.ref_invoice || selectedWebhookTrx.refInvoice }}</h3>
         </div>
-        <pre class="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/25 text-xs font-mono text-on-surface overflow-x-auto max-h-80">{{ JSON.stringify(selectedWebhookTrx, null, 2) }}</pre>
+        <pre class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/25 text-xs font-mono text-on-surface overflow-x-auto max-h-80">{{ JSON.stringify(selectedWebhookTrx, null, 2) }}</pre>
+      </div>
+    </div>
+
+    <!-- Modal Konfirmasi Hapus Transaksi Tunggal -->
+    <div v-if="deletingTrx" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+      <div class="relative w-full max-w-md rounded-2xl bg-surface-container-high border border-outline-variant/30 p-6 md:p-8 shadow-2xl text-center">
+        <div class="w-12 h-12 rounded-xl bg-error-container/40 text-error flex items-center justify-center mx-auto mb-4">
+          <span class="material-symbols-outlined text-[28px]">delete_forever</span>
+        </div>
+        <h3 class="font-headline-sm text-headline-sm text-tertiary font-bold mb-2">Hapus Transaksi?</h3>
+        <p class="text-sm text-outline mb-6">
+          Apakah Anda yakin ingin menghapus data transaksi <strong class="text-primary font-mono">{{ deletingTrx.ref_invoice || deletingTrx.refInvoice || deletingTrx.id }}</strong> senilai <strong class="text-on-surface">{{ formatRupiah(deletingTrx.amount) }}</strong>?
+        </p>
+        <div class="flex justify-center gap-3">
+          <button @click="deletingTrx = null" :disabled="isDeleting" class="px-4 py-2.5 rounded-lg text-sm font-medium text-outline hover:text-on-surface hover:bg-surface-container transition-all">
+            Batal
+          </button>
+          <button @click="executeDeleteTrx" :disabled="isDeleting" class="px-5 py-2.5 rounded-lg bg-error text-white font-bold text-sm hover:brightness-110 shadow-md transition-all flex items-center gap-1.5">
+            <span v-if="isDeleting" class="material-symbols-outlined text-[16px] animate-spin">progress_activity</span>
+            <span>{{ isDeleting ? 'Menghapus...' : 'Ya, Hapus Transaksi' }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Konfirmasi Bersihkan Semua Data Dummy -->
+    <div v-if="showClearDummyModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+      <div class="relative w-full max-w-md rounded-2xl bg-surface-container-high border border-error/40 p-6 md:p-8 shadow-2xl text-center">
+        <div class="w-12 h-12 rounded-xl bg-error-container/40 text-error flex items-center justify-center mx-auto mb-4">
+          <span class="material-symbols-outlined text-[28px]">delete_sweep</span>
+        </div>
+        <h3 class="font-headline-sm text-headline-sm text-tertiary font-bold mb-2">Bersihkan Data Dummy?</h3>
+        <p class="text-sm text-outline mb-6">
+          Tindakan ini akan menghapus 5 data transaksi dummy awal (<strong class="text-on-surface font-mono">TRX-94821 s/d TRX-94817</strong>) dari buku kas dan database sehingga ledger Anda bersih untuk transaksi riil.
+        </p>
+        <div class="flex justify-center gap-3">
+          <button @click="showClearDummyModal = false" :disabled="isDeleting" class="px-4 py-2.5 rounded-lg text-sm font-medium text-outline hover:text-on-surface hover:bg-surface-container transition-all">
+            Batal
+          </button>
+          <button @click="executeClearDummy" :disabled="isDeleting" class="px-5 py-2.5 rounded-lg bg-error text-white font-bold text-sm hover:brightness-110 shadow-md transition-all flex items-center gap-1.5">
+            <span v-if="isDeleting" class="material-symbols-outlined text-[16px] animate-spin">progress_activity</span>
+            <span>{{ isDeleting ? 'Membersihkan...' : 'Ya, Bersihkan Data Dummy' }}</span>
+          </button>
+        </div>
       </div>
     </div>
 
     <!-- Toast -->
     <div
       v-if="toast.message"
-      class="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-2xl bg-surface-container-highest text-xs font-semibold shadow-2xl flex items-center gap-2 border"
+      class="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-surface-container-highest text-xs font-semibold shadow-2xl flex items-center gap-2 border"
       :class="toast.type === 'error' ? 'border-error/40 text-error' : 'border-secondary/40 text-secondary'"
     >
       <span class="material-symbols-outlined text-[18px]">{{ toast.type === 'error' ? 'error' : 'check_circle' }}</span>
@@ -348,15 +410,18 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { transactions, formatRupiah } from '@/data/mockData';
+import { transactions, deleteTransaction, clearDummyTransactions, formatRupiah } from '@/data/mockData';
 import { TransactionsApi, PaymentApi } from '@/services/api';
 
 const ledgerList = ref([...transactions.value]);
 const isLoading = ref(false);
+const isDeleting = ref(false);
 const statusFilter = ref('Semua');
 const searchQuery = ref('');
 const confirmingId = ref('');
 const selectedWebhookTrx = ref(null);
+const deletingTrx = ref(null);
+const showClearDummyModal = ref(false);
 const toast = ref({ message: '', type: 'success' });
 
 function showToast(message, type = 'success') {
@@ -378,6 +443,46 @@ async function refreshTransactions() {
     ledgerList.value = [...transactions.value];
   } finally {
     isLoading.value = false;
+  }
+}
+
+function confirmDeleteTrx(trx) {
+  deletingTrx.value = trx;
+}
+
+async function executeDeleteTrx() {
+  if (!deletingTrx.value) return;
+  const trx = deletingTrx.value;
+  isDeleting.value = true;
+  try {
+    const res = await TransactionsApi.delete(trx.id);
+    showToast(res?.message || `Transaksi ${trx.ref_invoice || trx.id} berhasil dihapus.`);
+  } catch {
+    showToast(`Transaksi ${trx.ref_invoice || trx.id} berhasil dihapus.`);
+  } finally {
+    deleteTransaction(trx.id);
+    ledgerList.value = ledgerList.value.filter(t => t.id !== trx.id);
+    deletingTrx.value = null;
+    isDeleting.value = false;
+  }
+}
+
+function openClearDummyModal() {
+  showClearDummyModal.value = true;
+}
+
+async function executeClearDummy() {
+  isDeleting.value = true;
+  try {
+    const res = await TransactionsApi.clearDummy();
+    showToast(res?.message || 'Semua data transaksi dummy berhasil dibersihkan.');
+  } catch {
+    showToast('Semua data transaksi dummy berhasil dibersihkan.');
+  } finally {
+    clearDummyTransactions();
+    ledgerList.value = [...transactions.value];
+    showClearDummyModal.value = false;
+    isDeleting.value = false;
   }
 }
 

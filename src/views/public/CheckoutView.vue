@@ -68,7 +68,7 @@
                   type="text"
                   required
                   placeholder="Nama lengkap atau nama studio Anda"
-                  class="w-full bg-surface-container-lowest px-4 py-3 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container"
+                  class="w-full bg-surface-container-lowest px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
                 />
               </div>
 
@@ -80,7 +80,7 @@
                     type="email"
                     required
                     placeholder="email@domain.com"
-                    class="w-full bg-surface-container-lowest px-4 py-3 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container"
+                    class="w-full bg-surface-container-lowest px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
                   />
                   <p class="text-[11px] text-outline mt-1">Invoice, license key &amp; link unduhan dikirim ke email ini.</p>
                 </div>
@@ -88,13 +88,13 @@
                 <div>
                   <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Nomor WhatsApp *</label>
                   <div class="flex items-center gap-2">
-                    <span class="px-3 py-3 rounded-xl bg-surface-container-lowest border border-outline-variant/40 text-xs font-bold text-primary shrink-0">+62</span>
+                    <span class="px-3 py-2.5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 text-xs font-bold text-primary shrink-0">+62</span>
                     <input
                       v-model="buyer.whatsapp"
                       type="tel"
                       required
                       placeholder="81234567890"
-                      class="w-full bg-surface-container-lowest px-4 py-3 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container"
+                      class="w-full bg-surface-container-lowest px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
                     />
                   </div>
                 </div>
@@ -179,13 +179,13 @@
                   v-model="couponInput"
                   type="text"
                   placeholder="Contoh: LAUNCH20"
-                  class="flex-1 bg-surface-container-lowest px-3.5 py-2.5 rounded-xl border border-outline-variant/40 text-xs uppercase font-mono text-primary focus:outline-none focus:border-primary-container"
+                  class="flex-1 bg-surface-container-lowest px-3.5 py-2 rounded-lg border border-outline-variant/40 text-xs uppercase font-mono text-primary placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
                 />
                 <button
                   @click="applyCoupon"
                   :disabled="checkingCoupon || !couponInput.trim()"
                   type="button"
-                  class="px-4 py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-bright text-primary text-xs font-bold border border-outline-variant/30 disabled:opacity-50"
+                  class="px-3.5 py-2 rounded-lg bg-surface-container-high hover:bg-surface-bright text-primary text-xs font-bold border border-outline-variant/30 transition-colors disabled:opacity-50"
                 >
                   {{ checkingCoupon ? '...' : 'Pakai' }}
                 </button>

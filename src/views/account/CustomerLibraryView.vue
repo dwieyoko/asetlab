@@ -248,7 +248,7 @@
               v-model="pwdForm.current"
               type="password"
               required
-              class="w-full bg-surface-container-lowest px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+              class="w-full bg-surface-container-lowest px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
             />
           </div>
           <div>
@@ -258,7 +258,7 @@
               type="password"
               required
               minlength="8"
-              class="w-full bg-surface-container-lowest px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+              class="w-full bg-surface-container-lowest px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
             />
           </div>
           <div>
@@ -268,13 +268,13 @@
               type="password"
               required
               minlength="8"
-              class="w-full bg-surface-container-lowest px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"
+              class="w-full bg-surface-container-lowest px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
             />
           </div>
           <button
             type="submit"
             :disabled="savingPwd"
-            class="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-bold text-sm hover:brightness-110 disabled:opacity-60"
+            class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-bold text-sm hover:brightness-110 shadow-md shadow-primary-container/20 active:scale-[0.99] transition-all disabled:opacity-60"
           >
             {{ savingPwd ? 'Menyimpan...' : 'Simpan Kata Sandi Baru' }}
           </button>

@@ -161,6 +161,16 @@ export const TransactionsApi = {
   async getAll() {
     return request('/transactions.php');
   },
+  async delete(id) {
+    return request(`/transactions.php?id=${encodeURIComponent(id)}`, {
+      method: 'DELETE',
+    });
+  },
+  async clearDummy() {
+    return request('/transactions.php?action=clear_dummy', {
+      method: 'DELETE',
+    });
+  },
 };
 
 // ----------------------------------------------------

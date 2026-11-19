@@ -412,21 +412,21 @@
           </div>
           <div>
             <label class="block text-xs font-semibold text-on-surface-variant mb-1">Nama Lengkap</label>
-            <input v-model="form.name" required type="text" placeholder="e.g. Raditya Pratama" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container" />
+            <input v-model="form.name" required type="text" placeholder="e.g. Raditya Pratama" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" />
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Email Perusahaan / Bisnis</label>
-              <input v-model="form.email" required type="email" placeholder="nama@perusahaan.com" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container" />
+              <input v-model="form.email" required type="email" placeholder="nama@perusahaan.com" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Nomor WhatsApp</label>
-              <input v-model="form.whatsapp" type="tel" placeholder="081234567890" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container" />
+              <input v-model="form.whatsapp" type="tel" placeholder="081234567890" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" />
             </div>
           </div>
           <div>
             <label class="block text-xs font-semibold text-on-surface-variant mb-1">Kategori Kebutuhan Proyek</label>
-            <select v-model="form.service" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container">
+            <select v-model="form.service" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all">
               <option value="Web & SaaS Platform">Full-Stack Web & SaaS Platform</option>
               <option value="Design System & UI Kit">Design System & UI/UX Architecture</option>
               <option value="E-Commerce & High-Conversion">E-Commerce & High-Conversion Landing Page</option>
@@ -435,12 +435,12 @@
           </div>
           <div>
             <label class="block text-xs font-semibold text-on-surface-variant mb-1">Catatan Singkat / Objektif</label>
-            <textarea v-model="form.notes" rows="3" placeholder="Ceritakan gambaran singkat sistem atau platform yang ingin dibangun..." class="w-full bg-surface-container-low px-4 py-2 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container"></textarea>
+            <textarea v-model="form.notes" rows="3" placeholder="Ceritakan gambaran singkat sistem atau platform yang ingin dibangun..." class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"></textarea>
           </div>
 
-          <div class="pt-2 flex justify-end gap-3">
-            <button @click="showModal = false" type="button" class="px-5 py-2.5 rounded-full text-sm text-on-surface-variant hover:bg-surface-container">Batal</button>
-            <button :disabled="isSubmittingConsult" type="submit" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary-container to-secondary text-on-primary font-bold text-sm hover:brightness-110 shadow-lg disabled:opacity-60">
+          <div class="pt-2 flex justify-end gap-2.5">
+            <button @click="showModal = false" type="button" class="px-4 py-2.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-container transition-all">Batal</button>
+            <button :disabled="isSubmittingConsult" type="submit" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-bold text-sm hover:brightness-110 shadow-md shadow-primary-container/20 active:scale-[0.99] transition-all disabled:opacity-60">
               {{ isSubmittingConsult ? 'Mengirim...' : 'Kirim Pengajuan' }}
             </button>
           </div>

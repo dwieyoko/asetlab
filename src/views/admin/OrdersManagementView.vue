@@ -14,13 +14,13 @@
 
       <!-- Quick Actions & View Switcher -->
       <div class="flex flex-wrap items-center gap-space-sm">
-        <div class="flex items-center p-1 rounded-full bg-surface-container-lowest shadow-inner border border-outline-variant/20">
+        <div class="flex items-center p-1 rounded-lg bg-surface-container-lowest shadow-inner border border-outline-variant/20">
           <button 
             id="viewListBtn" 
             type="button" 
             @click="currentView = 'table'" 
             :class="currentView === 'table' ? 'bg-surface-container text-primary shadow-sm font-bold' : 'text-on-surface-variant hover:text-on-surface'"
-            class="flex items-center gap-1.5 px-4 py-2 rounded-full font-label-md text-label-md transition-all duration-200"
+            class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-md font-label-md text-xs transition-all duration-200"
           >
             <span class="material-symbols-outlined text-[18px]">table_rows</span>
             <span>Tabel</span>
@@ -30,7 +30,7 @@
             type="button" 
             @click="currentView = 'kanban'" 
             :class="currentView === 'kanban' ? 'bg-surface-container text-primary shadow-sm font-bold' : 'text-on-surface-variant hover:text-on-surface'"
-            class="flex items-center gap-1.5 px-4 py-2 rounded-full font-label-md text-label-md transition-all duration-200"
+            class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-md font-label-md text-xs transition-all duration-200"
           >
             <span class="material-symbols-outlined text-[18px]">view_kanban</span>
             <span>Kanban Board</span>
@@ -39,10 +39,10 @@
 
         <button 
           @click="openAddModal"
-          class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary-container via-secondary-fixed to-secondary text-surface-container-lowest font-label-md text-label-md font-bold shadow-lg shadow-primary-container/20 hover:shadow-primary-container/40 hover:scale-[1.02] active:scale-[0.98] transition-all" 
+          class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-primary-container via-secondary-fixed to-secondary text-surface-container-lowest font-label-md text-xs font-bold shadow-md shadow-primary-container/20 hover:shadow-primary-container/30 hover:brightness-105 active:scale-[0.98] transition-all" 
           type="button"
         >
-          <span class="material-symbols-outlined text-[20px] font-bold">add_circle</span>
+          <span class="material-symbols-outlined text-[18px] font-bold">add_circle</span>
           <span>+ Buat Pesanan Baru</span>
         </button>
       </div>
@@ -137,14 +137,14 @@
     </div>
 
     <!-- Navigation Filters & Search Ribbon -->
-    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md p-space-sm rounded-2xl bg-surface-container-low border border-outline-variant/20">
+    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md p-3 rounded-xl bg-surface-container-low border border-outline-variant/20">
       <!-- Status Tabs -->
-      <div class="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1 md:pb-0">
+      <div class="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-1 md:pb-0">
         <button 
           v-for="tab in statusTabs" 
           :key="tab.value"
           @click="activeStatusTab = tab.value"
-          class="flex items-center gap-2 px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-label-md text-xs transition-all whitespace-nowrap"
           :class="activeStatusTab === tab.value 
             ? 'bg-primary-container/20 text-primary-container border border-primary-container/40 font-bold shadow-sm' 
             : 'bg-surface-container-high/60 text-on-surface-variant hover:text-on-surface hover:bg-surface-container'"
@@ -152,7 +152,7 @@
         >
           <span>{{ tab.label }}</span>
           <span 
-            class="px-2 py-0.5 rounded-full text-label-sm font-bold text-xs"
+            class="px-1.5 py-0.5 rounded-md text-label-sm font-bold text-[10px]"
             :class="activeStatusTab === tab.value ? 'bg-primary-container text-surface-container-lowest' : 'bg-surface-container-highest text-outline'"
           >
             {{ tab.count }}
@@ -162,12 +162,12 @@
 
       <!-- Search Input -->
       <div class="relative min-w-[260px] md:w-72">
-        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
         <input 
           v-model="searchQuery"
           type="text" 
           placeholder="Cari klien, proyek, ID..."
-          class="w-full bg-surface-container-lowest/80 pl-10 pr-4 py-2 rounded-full border border-outline-variant/30 text-sm text-primary placeholder-outline focus:outline-none focus:border-primary-container/60 transition-colors"
+          class="w-full bg-surface-container pl-9 pr-9 py-2 rounded-lg border border-outline-variant/30 text-xs text-on-surface placeholder:text-outline focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all"
         />
         <button 
           v-if="searchQuery" 
@@ -523,14 +523,14 @@
 
     <!-- MODAL 1: BUAT PESANAN BARU (CREATE) -->
     <div v-if="showNewOrderModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-      <div class="relative w-full max-w-xl rounded-3xl bg-surface-container border border-outline-variant/40 p-6 md:p-8 shadow-2xl">
-        <button @click="showNewOrderModal = false" class="absolute top-5 right-5 text-outline hover:text-on-surface">
+      <div class="relative w-full max-w-xl rounded-2xl bg-surface-container border border-outline-variant/30 p-6 md:p-8 shadow-2xl">
+        <button @click="showNewOrderModal = false" class="absolute top-5 right-5 text-outline hover:text-on-surface p-1 rounded-lg hover:bg-surface-container transition-colors">
           <span class="material-symbols-outlined">close</span>
         </button>
 
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-12 h-12 rounded-2xl bg-primary-container/20 flex items-center justify-center text-primary-container">
-            <span class="material-symbols-outlined text-[24px]">post_add</span>
+          <div class="w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary-container">
+            <span class="material-symbols-outlined text-[22px]">post_add</span>
           </div>
           <div>
             <h3 class="font-headline-sm text-headline-sm text-primary font-bold">Buat Kontrak / Pesanan Baru</h3>
@@ -539,47 +539,47 @@
         </div>
 
         <form @submit.prevent="submitCreateOrder" class="space-y-4">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Nama Klien / Perusahaan *</label>
-              <input v-model="newOrder.client" required type="text" placeholder="PT Contoh Digital" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container">
+              <input v-model="newOrder.client" required type="text" placeholder="PT Contoh Digital" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all">
             </div>
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Email Klien</label>
-              <input v-model="newOrder.clientEmail" type="email" placeholder="corporate@contoh.id" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container">
+              <input v-model="newOrder.clientEmail" type="email" placeholder="corporate@contoh.id" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all">
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-on-surface-variant mb-1">Nama Proyek *</label>
-            <input v-model="newOrder.project" required type="text" placeholder="Revamp Web Portal & Mobile App" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container">
+            <input v-model="newOrder.project" required type="text" placeholder="Revamp Web Portal & Mobile App" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all">
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Paket Jasa / Scope</label>
-              <input v-model="newOrder.scope" type="text" placeholder="Fullstack Web, Next.js, API" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container">
+              <input v-model="newOrder.scope" type="text" placeholder="Fullstack Web, Next.js, API" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all">
             </div>
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">PIC Tim / Assignee</label>
-              <input v-model="newOrder.assignee" type="text" placeholder="Bramantyo & Tim Frontend" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container">
+              <input v-model="newOrder.assignee" type="text" placeholder="Bramantyo & Tim Frontend" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all">
             </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Nilai Kontrak (IDR) *</label>
-              <input v-model.number="newOrder.budget" required type="number" step="500000" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container">
+              <input v-model.number="newOrder.budget" required type="number" step="500000" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all">
             </div>
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Target Deadline</label>
-              <input v-model="newOrder.deadline" type="date" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container">
+              <input v-model="newOrder.deadline" type="date" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all">
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-on-surface-variant mb-1">Status Awal</label>
-            <select v-model="newOrder.status" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container">
+            <select v-model="newOrder.status" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all">
               <option value="Menunggu Konfirmasi">Menunggu Konfirmasi</option>
               <option value="Sedang Dikerjakan">Sedang Dikerjakan</option>
               <option value="Review">Dalam Review</option>
@@ -587,9 +587,9 @@
             </select>
           </div>
 
-          <div class="pt-3 flex justify-end gap-3">
-            <button @click="showNewOrderModal = false" type="button" class="px-5 py-2.5 rounded-full text-sm text-outline hover:text-on-surface">Batal</button>
-            <button type="submit" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-bold text-sm hover:brightness-110 shadow-lg shadow-primary-container/20">
+          <div class="pt-3 flex justify-end gap-2.5 border-t border-outline-variant/20">
+            <button @click="showNewOrderModal = false" type="button" class="px-4 py-2.5 rounded-lg text-sm font-medium text-outline hover:text-on-surface hover:bg-surface-container transition-all">Batal</button>
+            <button type="submit" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary-container to-secondary text-surface-container-lowest font-bold text-sm hover:brightness-110 shadow-md shadow-primary-container/20 active:scale-[0.99] transition-all">
               Simpan Pesanan
             </button>
           </div>
@@ -599,14 +599,14 @@
 
     <!-- MODAL 2: EDIT PESANAN (UPDATE) -->
     <div v-if="showEditModal && editingOrder" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-      <div class="relative w-full max-w-xl rounded-3xl bg-surface-container border border-outline-variant/40 p-6 md:p-8 shadow-2xl">
-        <button @click="showEditModal = false" class="absolute top-5 right-5 text-outline hover:text-on-surface">
+      <div class="relative w-full max-w-xl rounded-2xl bg-surface-container border border-outline-variant/30 p-6 md:p-8 shadow-2xl">
+        <button @click="showEditModal = false" class="absolute top-5 right-5 text-outline hover:text-on-surface p-1 rounded-lg hover:bg-surface-container transition-colors">
           <span class="material-symbols-outlined">close</span>
         </button>
 
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-12 h-12 rounded-2xl bg-secondary/20 flex items-center justify-center text-secondary">
-            <span class="material-symbols-outlined text-[24px]">edit_document</span>
+          <div class="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center text-secondary">
+            <span class="material-symbols-outlined text-[22px]">edit_document</span>
           </div>
           <div>
             <h3 class="font-headline-sm text-headline-sm text-primary font-bold">Edit Pesanan // {{ editingOrder.id }}</h3>
@@ -615,51 +615,51 @@
         </div>
 
         <form @submit.prevent="submitEditOrder" class="space-y-4">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Nama Klien</label>
-              <input v-model="editingOrder.client" required type="text" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary">
+              <input v-model="editingOrder.client" required type="text" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
             </div>
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Email Klien</label>
-              <input v-model="editingOrder.clientEmail" type="email" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary">
+              <input v-model="editingOrder.clientEmail" type="email" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-on-surface-variant mb-1">Nama Proyek</label>
-            <input v-model="editingOrder.project" required type="text" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary">
+            <input v-model="editingOrder.project" required type="text" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Paket Jasa / Scope</label>
-              <input v-model="editingOrder.scope" type="text" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary">
+              <input v-model="editingOrder.scope" type="text" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
             </div>
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">PIC Tim</label>
-              <input v-model="editingOrder.assignee" type="text" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary">
+              <input v-model="editingOrder.assignee" type="text" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
             </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Nilai Kontrak (IDR)</label>
-              <input v-model.number="editingOrder.budget" required type="number" step="500000" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary">
+              <input v-model.number="editingOrder.budget" required type="number" step="500000" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
             </div>
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Deadline</label>
-              <input v-model="editingOrder.deadline" type="date" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary">
+              <input v-model="editingOrder.deadline" type="date" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
             </div>
             <div>
               <label class="block text-xs font-semibold text-on-surface-variant mb-1">Progress (%)</label>
-              <input v-model.number="editingOrder.progress" type="number" min="0" max="100" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary">
+              <input v-model.number="editingOrder.progress" type="number" min="0" max="100" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-on-surface-variant mb-1">Status Proyek</label>
-            <select v-model="editingOrder.status" class="w-full bg-surface-container-low px-4 py-2.5 rounded-xl border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary">
+            <select v-model="editingOrder.status" class="w-full bg-surface-container-low px-3.5 py-2.5 rounded-lg border border-outline-variant/40 text-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
               <option value="Menunggu Konfirmasi">Menunggu Konfirmasi</option>
               <option value="Sedang Dikerjakan">Sedang Dikerjakan</option>
               <option value="Review">Dalam Review</option>
@@ -667,9 +667,9 @@
             </select>
           </div>
 
-          <div class="pt-3 flex justify-end gap-3">
-            <button @click="showEditModal = false" type="button" class="px-5 py-2.5 rounded-full text-sm text-outline hover:text-on-surface">Batal</button>
-            <button type="submit" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-secondary to-primary-container text-surface-container-lowest font-bold text-sm hover:brightness-110 shadow-lg shadow-secondary/20">
+          <div class="pt-3 flex justify-end gap-2.5 border-t border-outline-variant/20">
+            <button @click="showEditModal = false" type="button" class="px-4 py-2.5 rounded-lg text-sm font-medium text-outline hover:text-on-surface hover:bg-surface-container transition-all">Batal</button>
+            <button type="submit" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-secondary to-primary-container text-surface-container-lowest font-bold text-sm hover:brightness-110 shadow-md shadow-secondary/20 active:scale-[0.99] transition-all">
               Perbarui Pesanan
             </button>
           </div>
@@ -679,9 +679,9 @@
 
     <!-- MODAL 3: CONFIRM DELETE (DELETE) -->
     <div v-if="deletingOrder" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-      <div class="relative w-full max-w-md rounded-3xl bg-surface-container border border-error/30 p-6 md:p-8 shadow-2xl text-center">
-        <div class="w-14 h-14 rounded-2xl bg-error/15 text-error flex items-center justify-center mx-auto mb-4">
-          <span class="material-symbols-outlined text-[32px]">warning</span>
+      <div class="relative w-full max-w-md rounded-2xl bg-surface-container border border-error/30 p-6 md:p-8 shadow-2xl text-center">
+        <div class="w-12 h-12 rounded-xl bg-error/15 text-error flex items-center justify-center mx-auto mb-4">
+          <span class="material-symbols-outlined text-[28px]">warning</span>
         </div>
         <h3 class="font-headline-sm text-headline-sm text-primary font-bold mb-2">Hapus Pesanan?</h3>
         <p class="font-body-sm text-body-sm text-on-surface-variant mb-6">
@@ -689,10 +689,10 @@
         </p>
 
         <div class="flex items-center justify-center gap-3">
-          <button @click="deletingOrder = null" type="button" class="px-5 py-2.5 rounded-full text-sm text-outline hover:text-on-surface">
+          <button @click="deletingOrder = null" type="button" class="px-4 py-2.5 rounded-lg text-sm font-medium text-outline hover:text-on-surface hover:bg-surface-container transition-all">
             Batal
           </button>
-          <button @click="executeDelete" type="button" class="px-6 py-2.5 rounded-full bg-error text-white font-bold text-sm hover:brightness-110 shadow-lg shadow-error/20">
+          <button @click="executeDelete" type="button" class="px-5 py-2.5 rounded-lg bg-error text-white font-bold text-sm hover:brightness-110 shadow-md shadow-error/20 transition-all">
             Ya, Hapus
           </button>
         </div>

@@ -16,7 +16,7 @@
               @click="loadDashboard"
               :disabled="isLoading"
               type="button"
-              class="px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-bright text-xs text-primary font-semibold inline-flex items-center gap-1"
+              class="px-3.5 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-xs text-primary font-semibold inline-flex items-center gap-1 border border-outline-variant/30 transition-colors"
             >
               <span class="material-symbols-outlined text-[15px]" :class="{ 'animate-spin': isLoading }">refresh</span>
               Refresh
@@ -112,7 +112,7 @@
             <div class="relative">
               <select
                 v-model="trxFilter"
-                class="appearance-none bg-surface-container-high text-on-surface font-label-md py-1.5 pl-3 pr-8 rounded-full border border-outline-variant/30 focus:outline-none focus:border-primary-container cursor-pointer text-xs"
+                class="appearance-none bg-surface-container-high text-on-surface font-label-md py-1.5 pl-3 pr-8 rounded-lg border border-outline-variant/30 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 cursor-pointer text-xs transition-all"
               >
                 <option value="Semua">Semua Status</option>
                 <option value="Berhasil">Berhasil</option>

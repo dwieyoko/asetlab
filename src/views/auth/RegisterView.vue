@@ -236,7 +236,7 @@
 </label>
 <div class="relative flex items-center">
 <span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none">person</span>
-<input v-model="form.name" class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="fullName" placeholder="Nama lengkap Anda" required type="text">
+<input v-model="form.name" class="w-full py-2.5 pl-10 pr-4 rounded-lg bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all" id="fullName" placeholder="Nama lengkap Anda" required type="text">
 </div>
 </div>
 <!-- Alamat Email -->
@@ -247,7 +247,7 @@
 </label>
 <div class="relative flex items-center">
 <span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none">mail</span>
-<input v-model="form.email" class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="emailInput" placeholder="nama@email.com" required type="email">
+<input v-model="form.email" class="w-full py-2.5 pl-10 pr-4 rounded-lg bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all" id="emailInput" placeholder="nama@email.com" required type="email">
 </div>
 </div>
 <!-- WhatsApp Number -->
@@ -257,13 +257,13 @@
 <span class="text-[#10b981] font-normal">Notifikasi lisensi &amp; akses instan</span>
 </label>
 <div class="flex items-center gap-2">
-<div class="flex items-center justify-center gap-1 px-3 py-2.5 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white text-xs font-bold shrink-0">
+<div class="flex items-center justify-center gap-1 px-3 py-2.5 rounded-lg bg-[#1a2234] border border-white/[0.08] text-white text-xs font-bold shrink-0">
 <span>🇮🇩</span>
 <span>+62</span>
 </div>
 <div class="relative flex items-center w-full">
 <span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none">chat</span>
-<input v-model="form.whatsapp" class="w-full py-2.5 pl-10 pr-4 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all" id="whatsappInput" placeholder="81234567890" required type="tel">
+<input v-model="form.whatsapp" class="w-full py-2.5 pl-10 pr-4 rounded-lg bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all" id="whatsappInput" placeholder="81234567890" required type="tel">
 </div>
 </div>
 </div>
@@ -275,7 +275,7 @@
 </label>
 <div class="relative flex items-center">
 <span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none">lock</span>
-<input id="passwordInput" v-model="form.password" :type="showPassword ? 'text' : 'password'" required placeholder="Buat kata sandi aman" class="w-full py-2.5 pl-10 pr-10 rounded-xl bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-1 focus:ring-[#00f2fe] transition-all font-mono">
+<input id="passwordInput" v-model="form.password" :type="showPassword ? 'text' : 'password'" required placeholder="Buat kata sandi aman" class="w-full py-2.5 pl-10 pr-10 rounded-lg bg-[#1a2234] border border-white/[0.08] text-white placeholder:text-slate-500 text-sm shadow-inner focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all font-mono">
 <button type="button" @click="showPassword = !showPassword" class="absolute right-3.5 text-slate-400 hover:text-white transition-colors"><span class="material-symbols-outlined text-[18px]">{{ showPassword ? "visibility_off" : "visibility" }}</span></button>
 </div>
 <!-- Neon Password Strength Bar -->
@@ -305,7 +305,7 @@
                 </span>
 </label>
 <!-- Main Submit CTA Button -->
-<button :disabled="isSubmitting" class="relative overflow-hidden group w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#00f2fe] via-[#22c55e] to-[#10b981] text-[#060910] font-headline font-bold text-sm sm:text-base shadow-[0_4px_25px_rgba(0,242,254,0.35)] hover:shadow-[0_8px_32px_rgba(16,185,129,0.5)] transition-all transform active:scale-[0.99] flex items-center justify-center gap-2 mt-2 disabled:opacity-60 disabled:cursor-not-allowed" id="submitBtn" type="submit">
+<button :disabled="isSubmitting" class="relative overflow-hidden group w-full py-3.5 px-6 rounded-lg bg-gradient-to-r from-[#00f2fe] via-[#22c55e] to-[#10b981] text-[#060910] font-headline font-bold text-sm sm:text-base shadow-[0_4px_25px_rgba(0,242,254,0.35)] hover:shadow-[0_8px_32px_rgba(16,185,129,0.5)] transition-all transform active:scale-[0.99] flex items-center justify-center gap-2 mt-2 disabled:opacity-60 disabled:cursor-not-allowed" id="submitBtn" type="submit">
 <span class="relative z-10 flex items-center gap-2 font-bold tracking-tight">
                   {{ isSubmitting ? 'Mendaftarkan Akun...' : 'Buat Akun Sekarang & Klaim Bonus Launching' }}
                   <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">{{ isSubmitting ? 'progress_activity' : 'arrow_forward' }}</span>

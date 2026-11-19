@@ -530,3 +530,12 @@ export function formatFileSize(bytes) {
   const i = Math.min(units.length - 1, Math.floor(Math.log(b) / Math.log(1024)));
   return `${(b / Math.pow(1024, i)).toFixed(i === 0 ? 0 : 1)} ${units[i]}`;
 }
+
+export function deleteTransaction(id) {
+  transactions.value = transactions.value.filter(t => t.id !== id);
+}
+
+export function clearDummyTransactions() {
+  const dummyIds = ['TRX-94821', 'TRX-94820', 'TRX-94819', 'TRX-94818', 'TRX-94817'];
+  transactions.value = transactions.value.filter(t => !dummyIds.includes(t.id) && !String(t.id).startsWith('TRX-948'));
+}

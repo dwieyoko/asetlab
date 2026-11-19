@@ -117,7 +117,7 @@
 <!-- Social Sign-in Grid -->
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm pt-space-xs">
 <!-- Google Sign In -->
-<button class="group relative flex items-center justify-center gap-space-sm py-2.5 px-space-md rounded-full bg-[#1e2433] hover:bg-[#262e40] border border-slate-700/80 text-white font-label-lg text-label-lg transition-all duration-200 shadow-sm hover:shadow-[0_0_16px_rgba(0,242,254,0.25)] hover:border-[#00f2fe]/50" type="button">
+<button class="group relative flex items-center justify-center gap-space-sm py-2.5 px-space-md rounded-lg bg-[#1e2433] hover:bg-[#262e40] border border-slate-700/80 text-white font-label-lg text-label-lg transition-all duration-200 shadow-sm hover:shadow-[0_0_16px_rgba(0,242,254,0.25)] hover:border-[#00f2fe]/50" type="button">
 <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
@@ -127,7 +127,7 @@
 <span>Google</span>
 </button>
 <!-- GitHub Sign In -->
-<button class="group relative flex items-center justify-center gap-space-sm py-2.5 px-space-md rounded-full bg-[#1e2433] hover:bg-[#262e40] border border-slate-700/80 text-white font-label-lg text-label-lg transition-all duration-200 shadow-sm hover:shadow-[0_0_16px_rgba(78,222,163,0.25)] hover:border-[#4edea3]/50" type="button">
+<button class="group relative flex items-center justify-center gap-space-sm py-2.5 px-space-md rounded-lg bg-[#1e2433] hover:bg-[#262e40] border border-slate-700/80 text-white font-label-lg text-label-lg transition-all duration-200 shadow-sm hover:shadow-[0_0_16px_rgba(78,222,163,0.25)] hover:border-[#4edea3]/50" type="button">
 <svg class="w-4 h-4 flex-shrink-0 fill-white" viewBox="0 0 24 24">
 <path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path>
 </svg>
@@ -156,7 +156,7 @@
 </label>
 <div class="relative flex items-center">
 <span class="material-symbols-outlined absolute left-space-md text-[#94a3b8] text-[20px] pointer-events-none">mail</span>
-<input id="emailInput" v-model="email" type="email" required placeholder="nama@perusahaan.com" class="w-full bg-[#1e2433] text-white font-body-md text-body-md rounded-full pl-11 pr-space-md py-3 placeholder:text-slate-500 border border-slate-700/80 focus:border-[#00f2fe] focus:outline-none focus:ring-1 focus:ring-[#00f2fe] transition-all duration-200 shadow-inner">
+<input id="emailInput" v-model="email" type="email" required placeholder="nama@perusahaan.com" class="w-full bg-[#1e2433] text-white font-body-md text-body-md rounded-lg pl-11 pr-space-md py-3 placeholder:text-slate-500 border border-slate-700/80 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-200 shadow-inner">
 </div>
 </div>
 <!-- Password Field -->
@@ -169,7 +169,7 @@
 </div>
 <div class="relative flex items-center">
 <span class="material-symbols-outlined absolute left-space-md text-[#94a3b8] text-[20px] pointer-events-none">key</span>
-<input id="passwordInput" v-model="password" :type="showPassword ? 'text' : 'password'" required placeholder="••••••••••••" class="w-full bg-[#1e2433] text-white font-body-md text-body-md rounded-full pl-11 pr-12 py-3 placeholder:text-slate-500 border border-slate-700/80 focus:border-[#00f2fe] focus:outline-none focus:ring-1 focus:ring-[#00f2fe] transition-all duration-200 shadow-inner">
+<input id="passwordInput" v-model="password" :type="showPassword ? 'text' : 'password'" required placeholder="••••••••••••" class="w-full bg-[#1e2433] text-white font-body-md text-body-md rounded-lg pl-11 pr-12 py-3 placeholder:text-slate-500 border border-slate-700/80 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-200 shadow-inner">
 <button type="button" @click="showPassword = !showPassword" aria-label="Lihat kata sandi" class="absolute right-space-md text-[#94a3b8] hover:text-white transition-colors flex items-center justify-center p-1"><span class="material-symbols-outlined text-[20px]">{{ showPassword ? "visibility_off" : "visibility" }}</span></button>
 </div>
 </div>
@@ -181,7 +181,7 @@
 </label>
 </div>
 <!-- Submit CTA Button (Gradient Pill with Glow) -->
-<button :disabled="isLoading" class="w-full relative group mt-space-xs py-3 px-space-lg rounded-full bg-gradient-to-r from-[#00f2fe] via-[#00dce6] to-[#4edea3] text-[#0a0e17] font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-space-xs tracking-wide shadow-[0_4px_24px_rgba(0,242,254,0.35)] hover:shadow-[0_6px_32px_rgba(0,242,254,0.55)] hover:opacity-95 active:scale-[0.99] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed" id="submitAuthBtn" type="submit">
+<button :disabled="isLoading" class="w-full relative group mt-space-xs py-3 px-space-lg rounded-lg bg-gradient-to-r from-[#00f2fe] via-[#00dce6] to-[#4edea3] text-[#0a0e17] font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-space-xs tracking-wide shadow-[0_4px_24px_rgba(0,242,254,0.35)] hover:shadow-[0_6px_32px_rgba(0,242,254,0.55)] hover:opacity-95 active:scale-[0.99] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed" id="submitAuthBtn" type="submit">
 <span>{{ isLoading ? 'Memverifikasi...' : 'Masuk Sekarang' }}</span>
 <span class="material-symbols-outlined text-[22px] group-hover:translate-x-1 transition-transform">{{ isLoading ? 'progress_activity' : 'arrow_forward' }}</span>
 </button>
