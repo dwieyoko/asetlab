@@ -341,15 +341,15 @@
         </button>
 
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary-container">
+          <div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary-container">
             <span class="material-symbols-outlined text-[22px]">{{ isEditMode ? 'edit_note' : 'add_box' }}</span>
           </div>
           <div>
             <h3 class="font-headline-sm text-headline-sm text-tertiary font-bold">
-              {{ isEditMode ? 'Edit Produk Digital & Aset Privat' : 'Publikasi Produk Digital Baru' }}
+              {{ isEditMode ? 'Edit Detail Produk Digital' : 'Publikasi Produk Digital Baru' }}
             </h3>
             <p class="text-xs text-outline">
-              {{ isEditMode ? `Perbarui detail, cover, atau file aset untuk ${formState.sku}` : 'Lengkapi informasi produk dan unggah file aset digital ke folder privat.' }}
+              {{ isEditMode ? `Perbarui harga, status, atau metadata produk ${formState.sku}.` : 'Lengkapi informasi produk dan unggah file aset digital ke folder privat.' }}
             </p>
           </div>
         </div>
