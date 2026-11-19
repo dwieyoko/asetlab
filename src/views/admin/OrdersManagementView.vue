@@ -43,7 +43,7 @@
           type="button"
         >
           <span class="material-symbols-outlined text-[18px] font-bold">add_circle</span>
-          <span>+ Buat Pesanan Baru</span>
+          <span>Buat Pesanan Baru</span>
         </button>
       </div>
     </div>
